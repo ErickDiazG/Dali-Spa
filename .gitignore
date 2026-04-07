@@ -1,0 +1,19 @@
+# deps
+node_modules/
+
+# build
+dist/
+.astro/
+
+# env
+.env
+.env.*
+
+# os
+.DS_Store
+Thumbs.db
+
+# ide
+.idea/
+*.swp
+*.swo
