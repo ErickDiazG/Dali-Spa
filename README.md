@@ -1,11 +1,10 @@
-# DALI SPA — Luxury Wellness Website (PLANTILLA)
+# DALI SPA — Luxury Wellness Website
 
 A premium spa website built with **Astro** and **Tailwind CSS v4**, featuring a pixel-perfect luxury design with interactive React islands.
 
 ## 🌿 Features
 
 - **Premium Design** — Serif typography, teal & gold palette, smooth animations
-- **Dark Mode** — Full dark mode toggle with CSS custom properties
 - **Language Switcher** — EN/ES toggle
 - **Spa Packages Menu** — 7 category pill-carousel with image slider and expandable treatment details
 - **Booking Drawer** — Date picker, guest selector, promo code, and spa cart with quantity management

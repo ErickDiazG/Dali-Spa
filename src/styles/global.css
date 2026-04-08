@@ -1,25 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&family=Marcellus&display=swap');
 @import "tailwindcss";
+ 
+ /* ===== DESIGN TOKENS ===== */
+ :root {
+   --burgundy: #630B11;
+   --burgundy-dark: #4D080D;
+   --burgundy-light: #8A151D;
+   --navy: #0a1628;
+   --gold: #c9a84c;
+   --cream: #F2EBE1;
+   --cream-uniform: #DCC8B1;
+   --logo-charcoal: #333333;
+   --text: #1a1a1a;
+   --text-muted: #6b7280;
+   --border-color: #d1c7bc;
+ }
 
-/* ===== DESIGN TOKENS ===== */
-:root {
-  --teal: #007A87;
-  --teal-dark: #005f69;
-  --teal-light: #00a3b4;
-  --gold: #c9a84c;
-  --navy: #0a1628;
-  --cream: #faf9f7;
-  --text: #1a1a1a;
-  --text-muted: #6b7280;
-  --border-color: #e5e7eb;
-}
-.dark {
-  --cream: #0f172a;
-  --text: #e2e8f0;
-  --text-muted: #94a3b8;
-  --border-color: #1e293b;
-  --navy: #020617;
-}
 
 /* ===== KEYFRAMES ===== */
 @keyframes fade-in {
@@ -49,12 +45,16 @@
 @layer utilities {
   .font-serif { font-family: 'Playfair Display', serif; }
   .font-sans { font-family: 'Montserrat', sans-serif; }
-  .text-teal { color: var(--teal); }
-  .bg-teal { background-color: var(--teal); }
+  .font-logo { font-family: 'Marcellus', serif; }
+  .text-burgundy { color: var(--burgundy); }
+  .text-charcoal { color: var(--logo-charcoal); }
+  .text-cream-uniform { color: var(--cream-uniform); }
   .bg-navy { background-color: var(--navy); }
+  .bg-burgundy { background-color: var(--burgundy); }
+  .bg-burgundy-dark { background-color: var(--burgundy-dark); }
   .bg-cream { background-color: var(--cream); }
   .text-gold { color: var(--gold); }
-  .border-teal { border-color: var(--teal); }
+  .border-burgundy { border-color: var(--burgundy); }
   .animate-fade-in {
     animation: fade-in 0.9s ease-out forwards;
   }

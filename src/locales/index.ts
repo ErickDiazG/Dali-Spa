@@ -8,7 +8,7 @@ export const translations = {
       book: "Reservar Cita"
     },
     hero: {
-      subtitle: "Reconectando con tu paz interior en un santuario de lujo en",
+      subtitle: "La calma también es belleza",
       bookBtn: "Reservar Cita",
       exploreBtn: "Explorar Menú"
     },
@@ -88,7 +88,7 @@ export const translations = {
       book: "Book Session"
     },
     hero: {
-      subtitle: "Reconnecting you with your inner peace in a sanctuary of luxury at",
+      subtitle: "Calm is also beauty",
       bookBtn: "Book Session",
       exploreBtn: "Explore Menu"
     },

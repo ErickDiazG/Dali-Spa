@@ -62,10 +62,17 @@ La velocidad es parte esencial del lujo. El sitio debe ser instantáneo en móvi
 
 El diseño debe transmitir calma, exclusividad y fluidez:
 - **Colores de Marca (System Tokens)**:
-  - `--teal` (#007A87): Marca principal
-  - `--gold` (#c9a84c): Acentos sutiles (Luxury Feel)
-  - `--cream` (#faf9f7): Background suave
-  - `--navy` (#0a1628): Contrastes profundos y Dark Mode
+  - `--burgundy` (#630B11): Acentos principales, botones y branding secundario.
+  - `--navy` (#0a1628): Fondo del Footer (Branding Central). Proporciona profundidad y elegancia clásica.
+  - `--burgundy-dark` (#4D080D): Utilizado para contrastes profundos opcionales.
+  - `--cream` (#F2EBE1): Background cálido (Beige Arena). Sustituye al antiguo blanco roto.
+  - `--cream-uniform` (#DCC8B1): Tono beige extraído de los uniformes del personal. Utilizado en el Footer para contraste y branding real.
+  - `--logo-charcoal` (#333333): Color específico para el wordmark 'DALI' (inspirado en marketing). Utilizado en Header (scrolled).
+  - `--gold` (#c9a84c): Acentos sutiles (Luxury Feel).
+- **Tipografía de Marca**:
+  - **Logo**: `Marcellus` (Flared Sans-serif). Espaciado: `0.5em` (Extra Wide).
+  - **Encabezados**: `Playfair Display` (Serif de alto contraste).
+  - **Cuerpo**: `Montserrat` (Sans-serif moderno).
 - **Scroll Reveal**: Uso del componente `<Reveal />` para que las secciones principales entren con una animación suave (opacidad 0 -> 1 + desplazamiento 24px -> 0) optimizada por GPU.
 - **Micro-interacciones**: Clase `.luxury-hover` en imágenes y botones principales (zoom sutil + brillo).
 - **Glassmorphism**: Uso de `backdrop-blur` en menús fijos y carrito para dar profundidad y sensación premium.
@@ -130,13 +137,7 @@ El carrito de compras es el motor de reserva del sitio. Se gestiona mediante `Ca
 
 ---
 
-## 11. Dark Mode
 
-- Implementado vía clase `.dark` en `document.documentElement`.
-- Variables CSS críticas a redefinir: `--cream`, `--text`, `--text-muted`, `--border-color`, `--navy`.
-- El toggle debe persistir la preferencia si es posible o usar la del sistema.
-
----
 
 ## 12. Cosas a Evitar (Anti-patterns) — ❌
 

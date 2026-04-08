@@ -1,5 +1,5 @@
 export const images = {
-  hero: "https://images.unsplash.com/photo-1544161515-450ce4184654?auto=format&fit=crop&q=80&w=2000",
+  hero: "/images/Dali-hero.png",
   massage: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&q=80&w=1200",
   facial: "https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&q=80&w=1200",
   body: "https://images.unsplash.com/photo-1519415387722-a1c3bbff7158?auto=format&fit=crop&q=80&w=1200",
@@ -7,7 +7,18 @@ export const images = {
   facilities: "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?auto=format&fit=crop&q=80&w=1200",
   hydrotherapy: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=2000",
   resort: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=800",
+  skin: "/images/skin.jpg",
+  waiting: "/images/Te esperamos.jpg",
 };
+
+export const galleryImages = [
+  "/images/galeria1.jpg",
+  "/images/galeria2.jpg",
+  "/images/galeria3.jpg",
+  "/images/galeria4.jpg",
+  "/images/galeria5.jpg",
+  "/images/galeria6.jpg",
+];
 
 export interface SpaService {
   id: string;
