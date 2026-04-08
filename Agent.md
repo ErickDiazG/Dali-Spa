@@ -18,15 +18,16 @@ Todo cambio debe seguir estos principios de ingeniería para mantener un código
 
 ---
 
-## 2. Stack Tecnológico (Core)
+## 2. Stack Tecnológico (Core 2026)
 
 El proyecto utiliza tecnologías modernas de alto rendimiento:
-- **Framework**: Astro v4 (SSR: static/output)
-- **UI Interactiva**: React 18+ (@astrojs/react)
-- **Estilos**: Tailwind CSS v4 (Nativo, sin dependencias extra de v3)
+- **Framework**: Astro v5+ (Static Output)
+- **UI Interactiva**: React 19+ (@astrojs/react)
+- **Estilos**: Tailwind CSS v4+ (Nativo)
 - **Iconografía**: Lucide React
-- **Tipografía**: Google Fonts (Playfair Display & Montserrat)
+- **Tipografía**: Google Fonts (Playfair Display, Montserrat & Marcellus)
 - **Tipado**: TypeScript (Estricto)
+- **Internacionalización**: Custom Context-based i18n (ESP/ENG)
 
 ---
 
@@ -34,13 +35,15 @@ El proyecto utiliza tecnologías modernas de alto rendimiento:
 
 ```
 src/
-├── components/      # Componentes React (Navbar, Hero, TreatmentMenu, CartDrawer, etc.)
-│   └── DaliSpa.tsx  # Punto de entrada principal (export default)
+├── components/      # Componentes React (Navbar, Hero, TreatmentMenu, ReviewsSection, CartDrawer, etc.)
+│   └── DaliSpa.tsx  # Punto de entrada principal e Islas de Interactividad.
+├── context/         # React Context Providers (LanguageContext, etc.)
 ├── data/            # Datos centralizados (servicios, imágenes, categorías)
-│   └── index.ts     # Única Fuente de Verdad (Single Source of Truth)
-├── layouts/         # Layout.astro (Estructura global, meta tags SEO)
+│   └── index.ts     # Única Fuente de Verdad para Datos Estáticos (SSoT).
+├── layouts/         # Layout.astro (Base global, meta tags SEO, manifest link)
+├── locales/         # Diccionarios de traducción (index.ts)
 ├── pages/           # Rutas (index.astro)
-├── styles/          # global.css (Tokens, animaciones, utilities premium)
+├── styles/          # global.css (Tokens, animaciones premium, ticker definition)
 └── utils/           # (Proyectado para funciones de utilidad)
 ```
 
@@ -139,7 +142,34 @@ El carrito de compras es el motor de reserva del sitio. Se gestiona mediante `Ca
 
 
 
-## 12. Cosas a Evitar (Anti-patterns) — ❌
+## 11. Internacionalización (i18n)
+
+El sitio utiliza un sistema de traducción dinámico basado en un Contexto Global:
+- **Diccionarios**: Localizados en `src/locales/index.ts`.
+- **Selector**: Integrado en el Navbar (Escritorio y Móvil).
+- **Consistencia**: Todos los textos de UI, alertas y notificaciones del carrito deben pasar por el hook `useLanguage()`.
+
+---
+
+## 12. Flujo de Reserva (WhatsApp Integration)
+
+DALI SPA no usa un checkout tradicional bancario, sino una solicitud de disponibilidad directa:
+1. El usuario agrega tratamientos al carrito flotante.
+2. Define fecha, hora y número de personas en el `CartDrawer`.
+3. Al hacer clic en "SOLICITAR DISPONIBILIDAD", se genera un mensaje de WhatsApp preformateado con el resumen de la cita.
+4. El personal de recepción confirma y agenda manualmente.
+
+---
+
+## 13. Animaciones Avanzadas (Luxury Ticker)
+
+- **Galería Infinitas**: Utiliza `@keyframes ticker` en `global.css` optimizada para hardware.
+- **Reviews**: Carrusel manual (snap-center) en móvil y grid en desktop.
+- **Floating Cart**: Botón con animación de bounce y contador dinámico.
+
+---
+
+## 14. Cosas a Evitar (Anti-patterns) — ❌
 
 - ❌ **Hardcoding**: Escribir precios, textos o URLs de imágenes directamente en el componente JSX.
 - ❌ **Any**: Prohibido usar `any` en TypeScript; define interfaces o tipos adecuados.
@@ -151,9 +181,11 @@ El carrito de compras es el motor de reserva del sitio. Se gestiona mediante `Ca
 
 ---
 
-## 13. Comunicación del Agente (IA a Propietario)
+## 15. Comunicación del Agente (IA a Propietario)
 
 - **Seniority**: Comunicación técnica directa, proactiva y propositiva.
 - **Cero Placeholders**: Entregar siempre soluciones finales, funcionales y probadas.
 - **Justificaciones**: Siempre explicar el "por qué" de las mejoras técnicas basándose en performance, UX o mantenibilidad.
 - **Garantía de Calidad**: Validar responsividad, accesibilidad y velocidad antes de cada entrega formal.
+
+---

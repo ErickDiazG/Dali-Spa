@@ -55,10 +55,10 @@ function CartProvider({ children }: { children: React.ReactNode }) {
    NAVBAR
    ═══════════════════════════════════════════════════════════════ */
 const NAV_LINKS = [
-  { name: "TRATAMIENTOS", href: "#tratamientos" },
-  { name: "GALERÍA", href: "#galeria" },
-  { name: "UBICACIÓN", href: "#ubicacion" },
-  { name: "FAQ", href: "#faq" }
+  { key: "treatments", href: "#tratamientos" },
+  { key: "gallery", href: "#galeria" },
+  { key: "location", href: "#ubicacion" },
+  { key: "faq", href: "#faq" }
 ];
 const MENU_L = [];
 const MENU_R = [];
@@ -119,7 +119,7 @@ function Navbar() {
           {/* Logo */}
           <a href="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
             <span className={`text-2xl lg:text-3xl font-logo tracking-[0.5em] font-medium leading-none transition-colors ${scrolled ? "text-charcoal" : "text-white"}`}>DALI</span>
-            <span className={`text-[7px] lg:text-[8px] tracking-[0.5em] font-sans transition-colors ${scrolled ? "text-[var(--text-muted)]" : "text-white/60"}`}>BELLEZA Y RELAJACIÓN</span>
+            <span className={`text-[7px] lg:text-[8px] tracking-[0.5em] font-sans transition-colors ${scrolled ? "text-[var(--text-muted)]" : "text-white/60"}`}>{t('hero.logoSubtitle')}</span>
           </a>
 
           {/* Right */}
@@ -146,7 +146,7 @@ function Navbar() {
                   <MXFlag /> Español
                 </button>
                 <button onClick={() => { setLang("en"); setLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-burgundy hover:text-white transition-colors ${lang === "en" ? "text-burgundy font-bold" : "text-[var(--text)]"}`}>
-                  <USFlag /> Inglés
+                  <USFlag /> English
                 </button>
               </div>
             </div>
@@ -159,8 +159,8 @@ function Navbar() {
       <div className={`relative z-10 transition-all duration-300 hidden md:block ${scrolled ? "bg-white/80" : "bg-black/20"} backdrop-blur-md border-t border-white/5`}>
         <div className="max-w-7xl mx-auto px-4 flex justify-center items-center gap-6 md:gap-10 h-10 overflow-x-auto no-scrollbar">
           {NAV_LINKS.map(l => (
-            <a key={l.name} href={l.href} className={`text-[9px] md:text-[11px] tracking-[0.15em] font-sans whitespace-nowrap hover:text-burgundy transition-colors ${scrolled ? "text-[var(--text)]" : "text-white/80"}`}>
-              {l.name}
+            <a key={l.key} href={l.href} className={`text-[9px] md:text-[11px] tracking-[0.15em] font-sans whitespace-nowrap hover:text-burgundy transition-colors ${scrolled ? "text-[var(--text)]" : "text-white/80"}`}>
+              {t(`nav.${l.key}` as any) || l.key}
             </a>
           ))}
         </div>
@@ -194,7 +194,7 @@ function Hero() {
    TREATMENT MENU
    ═══════════════════════════════════════════════════════════════ */
 function TreatmentMenu() {
-  const [cat, setCat] = useState("Salud Cutánea");
+  const [cat, setCat] = useState("sc");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [imgIdx, setImgIdx] = useState(0);
   const { addItem } = useCart();
@@ -216,7 +216,7 @@ function TreatmentMenu() {
         {CATEGORIES.map(c => (
           <button key={c} onClick={() => { setCat(c); setExpandedId(null); setImgIdx(0); }}
             className={`shrink-0 px-5 py-2.5 text-[9px] lg:text-[10px] tracking-[0.15em] font-sans font-semibold uppercase transition-all whitespace-nowrap rounded-[4px] border ${cat === c ? "bg-burgundy text-white border-burgundy shadow-md scale-105" : "bg-transparent text-[var(--text-muted)] border-[var(--border-color)] hover:border-burgundy hover:text-burgundy"}`}>
-            {c}
+            {t(`treatments.categories.${c}` as any)}
           </button>
         ))}
       </div>
@@ -239,7 +239,7 @@ function TreatmentMenu() {
 
           {/* Image */}
           <div className="order-1 lg:order-none lg:col-span-5 relative aspect-[4/5] lg:aspect-square overflow-hidden rounded-2xl shadow-2xl xl:max-w-md mx-auto w-full">
-            <img src={catImgs[imgIdx]} alt={cat} className="w-full h-full object-cover object-top transition-all duration-700 luxury-hover" loading="lazy" />
+            <img src={catImgs[imgIdx]} alt={t(`treatments.categories.${cat}` as any)} className="w-full h-full object-cover object-top transition-all duration-700 luxury-hover" loading="lazy" />
           </div>
 
           {/* Mobile Pill carousel (Below Image, Hidden on Desktop) */}
@@ -259,14 +259,18 @@ function TreatmentMenu() {
                       </span>
                     )}
                     <div>
-                      <span className="text-base font-serif tracking-wider group-hover:text-teal transition-colors">{item.name}</span>
-                      {item.duration && <span className="text-xs text-[var(--text-muted)] ml-3">({item.duration.toLowerCase().replace(/ min/i, " minutes")})</span>}
+                      <span className="text-base font-serif tracking-wider group-hover:text-teal transition-colors">
+                        {t(`treatments.items.${item.id}.name` as any)}
+                      </span>
+                      {item.duration && <span className="text-xs text-[var(--text-muted)] ml-3">({item.duration.toLowerCase().replace(/ min/i, ` ${t('menu.duration' as any)}`)})</span>}
                     </div>
                   </div>
                 </button>
                 <div className={`overflow-hidden transition-all duration-500 ${expandedId === item.id ? "max-h-60 pb-6 opacity-100" : "max-h-0 opacity-0"}`}>
                   <div className="pl-9">
-                    <p className="text-sm font-sans leading-relaxed text-[var(--text-muted)] tracking-wide mb-4">{item.description}</p>
+                    <p className="text-sm font-sans leading-relaxed text-[var(--text-muted)] tracking-wide mb-4">
+                      {t(`treatments.items.${item.id}.description` as any)}
+                    </p>
                     {item.price && <p className="text-sm font-sans text-burgundy font-semibold tracking-wider mb-4 text-base">${item.price} MXN</p>}
                     <button onClick={(e) => { e.stopPropagation(); addItem({ ...item, imageUrl: catImgs[0] }); }} className="bg-burgundy hover:bg-burgundy/90 text-white px-6 py-3 tracking-[0.2em] text-[10px] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-all uppercase active:scale-95">{t('menu.addCart')}</button>
                   </div>
@@ -401,27 +405,27 @@ function CartDrawer() {
 
   const handleCheckout = () => {
     if (!has) {
-      alert(t('cart.emptyMsg') || "Por favor selecciona al menos un tratamiento.");
+      alert(t('cart.alertEmpty') || "Por favor selecciona al menos un tratamiento.");
       return;
     }
     if (!name.trim() || !date) {
-      alert("Por favor completa tu nombre y la fecha de la reservación para continuar.");
+      alert(t('cart.alertForm') || "Por favor completa tu nombre y la fecha de la reservación para continuar.");
       return;
     }
     
     const phone = siteInfo.phoneRaw.replace(/\D/g, '');
-    let msg = `Hola DALI SPA, quiero solicitar disponibilidad para una sesión.%0A%0A`;
-    msg += `*Detalles de Contacto:*%0A`;
-    msg += `👤 Nombre: ${name}%0A`;
-    msg += `📅 Fecha: ${date}%0A`;
-    msg += `👥 Personas: ${people}%0A`;
+    let msg = `${t('whatsapp.greeting')}%0A%0A`;
+    msg += `${t('whatsapp.contactDetails')}%0A`;
+    msg += `${t('whatsapp.name')} ${name}%0A`;
+    msg += `${t('whatsapp.date')} ${date}%0A`;
+    msg += `${t('whatsapp.people')} ${people}%0A`;
     
-    msg += `%0A*Tratamientos Seleccionados:*%0A`;
+    msg += `%0A${t('whatsapp.treatments')}%0A`;
     items.forEach(i => {
-      msg += `• ${i.quantity}x ${i.name} ($${(i.price || 0) * i.quantity} MXN)%0A`;
+      msg += `• ${i.quantity}x ${t(`treatments.items.${i.id}.name` as any)} ($${(i.price || 0) * i.quantity} MXN)%0A`;
     });
     
-    msg += `%0A*Total Estimado:* $${total} MXN`;
+    msg += `%0A${t('whatsapp.total')} $${total} MXN`;
     
     window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
   };
@@ -465,9 +469,9 @@ function CartDrawer() {
               <h3 className="text-[10px] tracking-[0.3em] font-sans text-[var(--text-muted)] uppercase font-semibold">{t('cart.selectedTreatments')}</h3>
               {items.map(item => (
                 <div key={item.id} className="flex gap-3 group">
-                  <div className="w-16 h-20 bg-gray-200 overflow-hidden shrink-0">{item.imageUrl && <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />}</div>
+                  <div className="w-16 h-20 bg-gray-200 overflow-hidden shrink-0">{item.imageUrl && <img src={item.imageUrl} alt={t(`treatments.items.${item.id}.name` as any)} className="w-full h-full object-cover" />}</div>
                   <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0">
-                    <div><div className="flex justify-between items-start gap-2"><h4 className="text-xs font-serif tracking-wider uppercase truncate">{item.name}</h4><button onClick={() => removeItem(item.id)} className="text-[var(--text-muted)] hover:text-red-500 transition-colors shrink-0"><Trash2 size={12} /></button></div><p className="text-[9px] tracking-widest font-sans text-burgundy uppercase mt-0.5">{item.duration}</p></div>
+                    <div><div className="flex justify-between items-start gap-2"><h4 className="text-xs font-serif tracking-wider uppercase truncate">{t(`treatments.items.${item.id}.name` as any)}</h4><button onClick={() => removeItem(item.id)} className="text-[var(--text-muted)] hover:text-red-500 transition-colors shrink-0"><Trash2 size={12} /></button></div><p className="text-[9px] tracking-widest font-sans text-burgundy uppercase mt-0.5">{item.duration}</p></div>
                     <div className="flex justify-between items-end"><span className="text-xs font-sans tracking-wider font-semibold">${(item.price || 0) * item.quantity} MXN</span><div className="flex items-center border border-[var(--border-color)]"><button onClick={() => updateQty(item.id, item.quantity - 1)} className="px-2 py-1 text-[var(--text-muted)]"><Minus size={10} /></button><span className="text-[10px] font-sans w-5 text-center">{item.quantity}</span><button onClick={() => updateQty(item.id, item.quantity + 1)} className="px-2 py-1 text-[var(--text-muted)]"><Plus size={10} /></button></div></div>
                   </div>
                 </div>
@@ -501,7 +505,7 @@ function GallerySection() {
     <section id="galeria" className="py-20 lg:py-28 bg-[var(--cream)] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 mb-10 md:mb-16 text-center">
         <Reveal>
-          <h2 className="text-3xl md:text-5xl font-serif text-[var(--navy)] tracking-wider">Galería</h2>
+          <h2 className="text-3xl md:text-5xl font-serif text-[var(--navy)] tracking-wider">{t('gallery.title')}</h2>
           <div className="w-12 h-0.5 bg-burgundy mx-auto mt-6" />
         </Reveal>
       </div>
@@ -556,7 +560,7 @@ function ContactInfoSection() {
         {/* Left Side: Image (replaces the form) */}
         <Reveal className="bg-cream rounded-2xl p-3 shadow-2xl relative">
           <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-            <img src={images.waiting} alt="Te Esperamos" className="w-full h-full object-cover" loading="lazy" />
+            <img src={images.waiting} alt={t('contactInfo.title')} className="w-full h-full object-cover" loading="lazy" />
           </div>
         </Reveal>
 

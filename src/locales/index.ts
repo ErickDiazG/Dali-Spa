@@ -5,12 +5,16 @@ export const translations = {
       treatments: "Tratamientos",
       facilities: "Instalaciones",
       contact: "Contacto",
-      book: "Reservar Cita"
+      book: "Reservar Cita",
+      gallery: "Galería",
+      location: "Ubicación",
+      faq: "FAQ"
     },
     hero: {
       subtitle: "La calma también es belleza",
       bookBtn: "Reservar Cita",
-      exploreBtn: "Explorar Menú"
+      exploreBtn: "Explorar Menú",
+      logoSubtitle: "BELLEZA Y RELAJACIÓN"
     },
     about: {
       title: "El Santuario",
@@ -66,7 +70,9 @@ export const translations = {
       proceedBtn: "SOLICITAR DISPONIBILIDAD",
       disclaimer: "Tu mensaje será enviado por WhatsApp para confirmar disponibilidad.",
       searchBtn: "BUSCAR DISPONIBILIDAD",
-      continueBtn: "SEGUIR EXPLORANDO"
+      continueBtn: "SEGUIR EXPLORANDO",
+      alertEmpty: "Por favor selecciona al menos un tratamiento.",
+      alertForm: "Por favor completa tu nombre y la fecha de la reservación para continuar."
     },
     footer: {
       subtitle: "Reconectando con tu paz interior en un santuario de lujo en",
@@ -107,6 +113,54 @@ export const translations = {
       subtitle: "Visítanos en nuestra ubicación",
       viewExternal: "Ver en Google Maps",
       viewMaps: "Ver en Maps"
+    },
+    gallery: {
+      title: "Galería"
+    },
+    whatsapp: {
+      greeting: "Hola DALI SPA, quiero solicitar disponibilidad para una sesión.",
+      contactDetails: "*Detalles de Contacto:*",
+      name: "👤 Nombre:",
+      date: "📅 Fecha:",
+      people: "👥 Personas:",
+      treatments: "*Tratamientos Seleccionados:*",
+      total: "*Total Estimado:*"
+    },
+    treatments: {
+      categories: {
+        sc: "Salud Cutánea",
+        ac: "Cuidado Avanzado",
+        sb: "Especialidad y Biorregeneración",
+        bw: "Cuerpo y Bienestar",
+        nb: "Uñas y Belleza"
+      },
+      items: {
+        sc1: { name: "Limpieza Profunda", description: "Tratamiento esencial para purificar la piel, eliminando impurezas y células muertas para revelar un rostro fresco y luminoso." },
+        sc2: { name: "Tratamiento Antiacné", description: "Cuidado especializado para pieles propensas al acné, utilizando activos purificantes y calmantes para reducir la inflamación y prevenir brotes." },
+        sc3: { name: "Sistemas de Hidratación y Oxigenación", description: "Infusión intensiva de humedad y oxígeno que revitaliza las células, combatiendo la opacidad y previniendo el envejecimiento prematuro." },
+        sc4: { name: "Desensibilizante", description: "Terapia suave y reconfortante diseñada específicamente para calmar pieles reactivas, enrojecidas o sensibles, restaurando su barrera natural." },
+        ac1: { name: "Hydrafacial", description: "La tecnología más avanzada para limpiar, extraer e hidratar la piel de manera profunda, utilizando sérums súper efectivos." },
+        ac2: { name: "Micropunción (Dermapen)", description: "Tratamiento regenerador que estimula la producción de colágeno y elastina, mejorando la textura de la piel, cicatrices y líneas finas." },
+        ac3: { name: "Lifting Facial", description: "Procedimiento no invasivo enfocado en tensar y elevar los tejidos del rostro, proporcionando un efecto rejuvenecedor y firmeza inmediata." },
+        ac4: { name: "Rejuvenecimiento Láser", description: "Terapia de luz pulsada de alta precisión para tratar manchas, unificar el tono y estimular la renovación celular para una piel visiblemente más joven." },
+        ac5: { name: "Láminas de Oro", description: "Exclusivo facial que incorpora los beneficios antioxidantes y tensores del oro de 24 quilates, aportando un brillo espectacular y lujo absoluto." },
+        sb1: { name: "Exosomas PDRN", description: "Terapia regenerativa celular profunda ideal para reparar la piel dañada, promover la curación y rejuvenecer utilizando exosomas avanzados." },
+        sb2: { name: "PDRN de Salmón (ADN de Salmón)", description: "Potente tratamiento bioestimulador que utiliza polinucleótidos para reparar tejidos, mejorar la elasticidad y revertir el daño solar." },
+        sb3: { name: "Plasma Rico en Plaquetas", description: "Bio-revitalización utilizando tu propio plasma para estimular la regeneración tisular, logrando mayor luminosidad, firmeza y reducción de líneas de expresión." },
+        sb4: { name: "Fibroblast", description: "Técnica innovadora tipo arco eléctrico para tensar la piel, reduciendo eficazmente estrías, flacidez y párpados caídos sin cirugía." },
+        sb5: { name: "Dermaplaning", description: "Exfoliación física controlada que elimina el vello fino y células muertas, logrando una superficie cutánea ultra suave y facilitando la absorción de productos." },
+        sb6: { name: "Radiofrecuencia", description: "Tecnología térmica de ondas electromagnéticas que estimula la formación de nuevo colágeno, mejorando progresivamente la flacidez facial o corporal." },
+        bw1: { name: "Masaje Relajante", description: "Experiencia enfocada en aliviar la fatiga mental y física a través de masoterapia con pases suaves y rítmicos. Induce un estado de paz profunda." },
+        bw2: { name: "Masaje Descontracturante", description: "Terapia firme y focalizada para disolver nudos de tensión, espasmos musculares y dolor crónico, restaurando la movilidad y el confort." },
+        bw3: { name: "Presoterapia", description: "Tratamiento de compresión neumática controlada diseñado para mejorar el drenaje linfático, reducir retención de líquidos y eliminar toxinas." },
+        bw4: { name: "Bundle: Masaje + Spa de pies", description: "El descanso definitivo. Combina un reconfortante masaje corporal con un exquisito spa revitalizante específico para pies cansados." },
+        bw5: { name: "Bundle: Masaje Descontracturante + Presoterapia", description: "Programa integral de recuperación para relajar musculatura profunda y activar simultáneamente el sistema linfático. Resultados inmediatos." },
+        nb1: { name: "Manicura Spa (+ Gel de regalo)", description: "Cuidado completo para tus manos que incluye exfoliación, hidratación profunda, arreglo de cutículas y aplicación gratuita de esmalte en gel." },
+        nb2: { name: "Pedicura Spa (+ Détox iónico de regalo)", description: "Ritual consentidor para los pies con servicio especializado de pedicura. Incluye sesión de détox iónico complementaria para limpiar el organismo." },
+        nb3: { name: "Hydralips", description: "Tratamiento hidratante intensivo y voluminizador sin agujas para suavizar, mejorar la textura y rejuvenecer el contorno de tus labios." },
+        nb4: { name: "Lifting de Pestañas", description: "Elevación natural desde la raíz que da un efecto de mayor longitud y curvatura a tus pestañas, realzando la mirada sin necesidad de extensiones." },
+        nb5: { name: "Depilación (Cejas, bigote o patilla)", description: "Servicio de depilación precisa y cuidadosa adaptada para áreas delicadas del rostro, dejando la piel libre de vello y suave." }
+      }
     }
   },
   en: {
@@ -115,12 +169,16 @@ export const translations = {
       treatments: "Treatments",
       facilities: "Facilities",
       contact: "Contact",
-      book: "Book Session"
+      book: "Book Session",
+      gallery: "Gallery",
+      location: "Location",
+      faq: "FAQ"
     },
     hero: {
       subtitle: "Calm is also beauty",
       bookBtn: "Book Session",
-      exploreBtn: "Explore Menu"
+      exploreBtn: "Explore Menu",
+      logoSubtitle: "BEAUTY & RELAXATION"
     },
     about: {
       title: "The Sanctuary",
@@ -176,7 +234,9 @@ export const translations = {
       proceedBtn: "REQUEST AVAILABILITY",
       disclaimer: "Your message will be sent via WhatsApp to confirm availability.",
       searchBtn: "SEARCH AVAILABILITY",
-      continueBtn: "CONTINUE BROWSING"
+      continueBtn: "CONTINUE BROWSING",
+      alertEmpty: "Please select at least one treatment.",
+      alertForm: "Please fill in your name and booking date to continue."
     },
     footer: {
       subtitle: "Reconnecting you with your inner peace in a sanctuary of luxury at",
@@ -217,6 +277,54 @@ export const translations = {
       subtitle: "Visit us at our location",
       viewExternal: "View on Google Maps",
       viewMaps: "View on Maps"
+    },
+    gallery: {
+      title: "Gallery"
+    },
+    whatsapp: {
+      greeting: "Hello DALI SPA, I would like to request availability for a session.",
+      contactDetails: "*Contact Details:*",
+      name: "👤 Name:",
+      date: "📅 Date:",
+      people: "👥 People:",
+      treatments: "*Selected Treatments:*",
+      total: "*Estimated Total:*"
+    },
+    treatments: {
+      categories: {
+        sc: "Skin Health",
+        ac: "Advanced Care",
+        sb: "Specialty & Bio-Regen",
+        bw: "Body & Wellness",
+        nb: "Nails & Beauty"
+      },
+      items: {
+        sc1: { name: "Deep Cleansing", description: "Essential treatment to purify the skin, removing impurities and dead cells to reveal a fresh and luminous face." },
+        sc2: { name: "Anti-acne Treatment", description: "Specialized care for acne-prone skin, using purifying and soothing actives to reduce inflammation and prevent breakouts." },
+        sc3: { name: "Hydration and Oxygenation Systems", description: "Intensive infusion of moisture and oxygen that revitalizes cells, fighting dullness and preventing premature aging." },
+        sc4: { name: "Desensitizing", description: "Gentle and comforting therapy specifically designed to calm reactive, reddened or sensitive skin, restoring its natural barrier." },
+        ac1: { name: "Hydrafacial", description: "The most advanced technology to deeply clean, extract and hydrate the skin, using super effective serums." },
+        ac2: { name: "Microneedling (Dermapen)", description: "Regenerating treatment that stimulates collagen and elastin production, improving skin texture, scars and fine lines." },
+        ac3: { name: "Facial Lifting", description: "Non-invasive procedure focused on tightening and lifting facial tissues, providing a rejuvenating effect and immediate firmness." },
+        ac4: { name: "Laser Rejuvenation", description: "High-precision pulsed light therapy to treat spots, unify tone and stimulate cell renewal for visibly younger skin." },
+        ac5: { name: "Gold Leaf Facial", description: "Exclusive facial incorporating the antioxidant and tightening benefits of 24-karat gold, providing spectacular glow and absolute luxury." },
+        sb1: { name: "PDRN Exosomes", description: "Deep cellular regenerative therapy ideal for repairing damaged skin, promoting healing and rejuvenating using advanced exosomes." },
+        sb2: { name: "Salmon PDRN (Salmon DNA)", description: "Powerful biostimulating treatment that uses polynucleotides to repair tissues, improve elasticity and reverse sun damage." },
+        sb3: { name: "Platelet-Rich Plasma", description: "Bio-revitalization using your own plasma to stimulate tissue regeneration, achieving greater luminosity, firmness and reduction of expression lines." },
+        sb4: { name: "Fibroblast", description: "Innovative electric arc technique to tighten the skin, effectively reducing stretch marks, sagging and drooping eyelids without surgery." },
+        sb5: { name: "Dermaplaning", description: "Controlled physical exfoliation that removes fine hair and dead cells, achieving an ultra-smooth skin surface and facilitating product absorption." },
+        sb6: { name: "Radiofrequency", description: "Thermal electromagnetic wave technology that stimulates new collagen formation, progressively improving facial or body sagging." },
+        bw1: { name: "Relaxing Massage", description: "Experience focused on alleviating mental and physical fatigue through massage therapy with gentle, rhythmic strokes. Induces a state of deep peace." },
+        bw2: { name: "Deep Tissue Massage", description: "Firm and focused therapy to dissolve tension knots, muscle spasms and chronic pain, restoring mobility and comfort." },
+        bw3: { name: "Pressotherapy", description: "Controlled pneumatic compression treatment designed to improve lymphatic drainage, reduce fluid retention and eliminate toxins." },
+        bw4: { name: "Bundle: Massage + Foot Spa", description: "The ultimate rest. Combines a comforting body massage with an exquisite revitalizing spa specifically for tired feet." },
+        bw5: { name: "Bundle: Deep Tissue Massage + Pressotherapy", description: "Comprehensive recovery program to relax deep muscles and simultaneously activate the lymphatic system. Immediate results." },
+        nb1: { name: "Spa Manicure (+ Gift Gel)", description: "Complete care for your hands including exfoliation, deep hydration, cuticle care and free gel polish application." },
+        nb2: { name: "Spa Pedicure (+ Ionic Detox Gift)", description: "Pampering ritual for feet with specialized pedicure service. Includes complementary ionic detox session to cleanse the body." },
+        nb3: { name: "Hydralips", description: "Intensive moisturizing and volumizing treatment without needles to smooth, improve texture and rejuvenate your lip contour." },
+        nb4: { name: "Lash Lift", description: "Natural lifting from the root that gives an effect of greater length and curl to your lashes, enhancing the gaze without needing extensions." },
+        nb5: { name: "Waxing (Eyebrows, upper lip or sideburns)", description: "Precise and careful waxing service adapted for delicate facial areas, leaving skin hair-free and smooth." }
+      }
     }
   }
 };
