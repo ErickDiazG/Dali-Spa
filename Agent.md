@@ -1,4 +1,4 @@
-# Master Developer Guide — DALI SPA (Luxury Wellness)
+# Master Developer Guide — DALI SPA (Belleza y Relajacion)
 
 Este es el documento **único y definitivo** de estándares para el proyecto **DALI SPA**. Define la arquitectura, diseño, performance y convenciones para asegurar una experiencia de lujo, rápida y mantenible tanto para humanos como agentes IA.
 

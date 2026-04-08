@@ -56,45 +56,43 @@ function CartProvider({ children }: { children: React.ReactNode }) {
    NAVBAR
    ═══════════════════════════════════════════════════════════════ */
 const NAV_LINKS = [
-  "DEALS", "DINING", "SUITES", "ALL INCLUSIVE PLAN", "GALLERY", "BLOG"
+  { name: "INICIO", href: "#" },
+  { name: "EXPERIENCIA", href: "#experiencia" },
+  { name: "TRATAMIENTOS", href: "#tratamientos" },
+  { name: "GALERÍA", href: "#galeria" },
+  { name: "UBICACIÓN", href: "#ubicacion" },
+  { name: "FAQ", href: "#faq" }
 ];
-const MENU_L = [
-  { l: "Resort" }, { l: "Deals" }, { l: "Suites" }, { l: "Dining" },
-  { l: "Gallery" }, { l: "Things to Do" }, { l: "Spa", active: true }, { l: "Blog" },
-];
-const MENU_R = [
-  { l: "Travel Agents" }, { l: "Exclusive Benefits" },
-  { l: "Villa La Valencia", badge: "New Resort" }, { l: "All Inclusive Plan" }, { l: "Weddings" },
-];
+const MENU_L = [];
+const MENU_R = [];
 
 /* ═══════════════════════════════════════════════════════════════
    FLAGS (SVG)
    ═══════════════════════════════════════════════════════════════ */
 const MXFlag = () => (
   <svg viewBox="0 0 900 600" width="16" height="12" className="rounded-sm shadow-sm ring-1 ring-white/10">
-    <rect width="900" height="600" fill="#ce1126"/><rect width="600" height="600" fill="#fff"/><rect width="300" height="600" fill="#006847"/>
+    <rect width="900" height="600" fill="#ce1126" /><rect width="600" height="600" fill="#fff" /><rect width="300" height="600" fill="#006847" />
     <g transform="translate(450,300) scale(0.4)">
-      <path d="M-80 0a80 80 0 1 0 160 0 80 80 0 1 0-160 0" fill="#006847"/><path d="M-60 0a60 60 0 1 1 120 0 60 60 0 1 1-120 0" fill="#964b00"/>
-      <path d="M0-100l20 60 60 20-60 20-20 60-20-60-60-20 60-20z" fill="#fff"/>
+      <path d="M-80 0a80 80 0 1 0 160 0 80 80 0 1 0-160 0" fill="#006847" /><path d="M-60 0a60 60 0 1 1 120 0 60 60 0 1 1-120 0" fill="#964b00" />
+      <path d="M0-100l20 60 60 20-60 20-20 60-20-60-60-20 60-20z" fill="#fff" />
     </g>
   </svg>
 );
 const USFlag = () => (
   <svg viewBox="0 0 741 390" width="16" height="12" className="rounded-sm shadow-sm ring-1 ring-white/10">
-    <rect width="741" height="390" fill="#b22234"/><path d="M0 30h741M0 90h741M0 150h741M0 210h741M0 270h741M0 330h741" stroke="#fff" strokeWidth="30"/>
-    <rect width="296" height="210" fill="#3c3b6e"/>
+    <rect width="741" height="390" fill="#b22234" /><path d="M0 30h741M0 90h741M0 150h741M0 210h741M0 270h741M0 330h741" stroke="#fff" strokeWidth="30" />
+    <rect width="296" height="210" fill="#3c3b6e" />
     <g fill="#fff">
-      <g id="s18"><g id="s9"><g id="s5"><g id="s"><path d="M0-4l1.3 4H-1.3zM-2 1.5l3.2-1.3-3.2-1.2zm4 0L-1.2.2 2-1.1z"/><path d="M0 4L-1.3 0H1.3z" opacity=".5"/></g>
-      <use xlinkHref="#s" x="43" y="21"/><use xlinkHref="#s" x="86" y="21"/><use xlinkHref="#s" x="129" y="21"/><use xlinkHref="#s" x="172" y="21"/></g>
-      <use xlinkHref="#s5" x="21" y="21"/></g>
-      <use xlinkHref="#s9" x="0" y="42"/><use xlinkHref="#s9" x="0" y="84"/><use xlinkHref="#s9" x="0" y="126"/></g>
+      <g id="s18"><g id="s9"><g id="s5"><g id="s"><path d="M0-4l1.3 4H-1.3zM-2 1.5l3.2-1.3-3.2-1.2zm4 0L-1.2.2 2-1.1z" /><path d="M0 4L-1.3 0H1.3z" opacity=".5" /></g>
+        <use xlinkHref="#s" x="43" y="21" /><use xlinkHref="#s" x="86" y="21" /><use xlinkHref="#s" x="129" y="21" /><use xlinkHref="#s" x="172" y="21" /></g>
+        <use xlinkHref="#s5" x="21" y="21" /></g>
+        <use xlinkHref="#s9" x="0" y="42" /><use xlinkHref="#s9" x="0" y="84" /><use xlinkHref="#s9" x="0" y="126" /></g>
     </g>
   </svg>
 );
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const { lang, setLang, t } = useLanguage();
   const { setOpen } = useCart();
@@ -108,98 +106,59 @@ function Navbar() {
     return () => { window.removeEventListener("scroll", h); window.removeEventListener("mousedown", clickOutside); };
   }, []);
 
-
-
-  useEffect(() => { document.body.style.overflow = menuOpen ? "hidden" : ""; }, [menuOpen]);
-
-  const tx = scrolled ? "text-[var(--text)]" : "text-white";
   const txm = scrolled ? "text-[var(--text-muted)]" : "text-white/70";
 
   return (
-    <>
-      <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "bg-[var(--cream)] shadow-md" : "bg-black/70 backdrop-blur-sm"}`}>
-        {/* Row 1 */}
-        <div className="border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-10">
-            <div className="hidden lg:flex gap-5 items-center text-[11px] tracking-wider">
-              <a href={`tel:${siteInfo.phoneRaw}`} className={`flex items-center gap-1.5 hover:text-teal transition-colors ${txm}`}>
-                <Phone size={12} /> {siteInfo.phone}
-              </a>
-            </div>
-            {/* Logo */}
-            <a href="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <span className={`text-2xl lg:text-3xl font-logo tracking-[0.5em] font-medium leading-none transition-colors ${scrolled ? "text-charcoal" : "text-white"}`}>DALI</span>
-              <span className={`text-[7px] lg:text-[8px] tracking-[0.5em] font-sans transition-colors ${scrolled ? "text-[var(--text-muted)]" : "text-white/60"}`}>BELLEZA Y RELAJACIÓN</span>
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "bg-[var(--cream)] shadow-md" : "bg-black/70 backdrop-blur-sm"}`}>
+      {/* Row 1 */}
+      <div className="relative z-20 border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-14 md:h-16">
+          <div className="hidden lg:flex gap-5 items-center text-[11px] tracking-wider">
+            <a href={`tel:${siteInfo.phoneRaw}`} className={`flex items-center gap-1.5 hover:text-burgundy transition-colors ${txm}`}>
+              <Phone size={12} /> {siteInfo.phone}
             </a>
-            {/* Right */}
-            <div className="flex gap-4 items-center text-[11px] tracking-wider ml-auto">
-              <div className="relative" ref={langRef}>
-                <button onClick={() => setLangOpen(!langOpen)} className={`hidden lg:flex items-center gap-2 hover:text-burgundy transition-all ${txm} uppercase font-bold py-1`}>
-                  {lang === "es" ? <MXFlag /> : <USFlag />}
-                  <span>{lang === "es" ? "ESP" : "ENG"}</span>
-                  <ChevronDown size={12} className={`transition-transform duration-300 ${langOpen ? "rotate-180" : ""}`} />
-                </button>
-                {/* Dropdown */}
-                <div className={`absolute top-full right-0 mt-2 w-40 bg-[var(--cream)]/90 backdrop-blur-md border border-[var(--border-color)] shadow-xl transition-all duration-300 origin-top-right ${langOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}`}>
-                  <button onClick={() => { setLang("es"); setLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-burgundy hover:text-white transition-colors ${lang === "es" ? "text-burgundy font-bold" : "text-[var(--text)]"}`}>
-                    <MXFlag /> Español
-                  </button>
-                  <button onClick={() => { setLang("en"); setLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-burgundy hover:text-white transition-colors ${lang === "en" ? "text-burgundy font-bold" : "text-[var(--text)]"}`}>
-                    <USFlag /> Inglés
-                  </button>
-                </div>
-              </div>
-              
-              <button onClick={() => setOpen(true)} className="bg-burgundy hover:bg-burgundy/90 text-white px-5 py-2 text-[10px] tracking-[0.15em] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-colors uppercase">{t('nav.book')}</button>
-              <button onClick={() => setMenuOpen(!menuOpen)} className={`p-1 transition-colors ${tx}`} aria-label="Menu">
-                {menuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
           </div>
-        </div>
-        {/* Row 2 */}
-        <div className={`hidden lg:block transition-all duration-300 ${scrolled ? "h-0 overflow-hidden opacity-0" : ""}`}>
-          <div className="max-w-7xl mx-auto px-4 flex justify-center items-center gap-10 h-10">
-            {NAV_LINKS.map(l => <a key={l} href="#" className={`text-[11px] tracking-[0.15em] font-sans hover:text-teal transition-colors ${scrolled ? "text-[var(--text)]/80" : "text-white/80"}`}>{l}</a>)}
-          </div>
-        </div>
-      </header>
 
-      {/* Full-screen menu */}
-      <div className={`fixed inset-0 z-[60] bg-[var(--cream)] transition-all duration-500 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        <div className="border-b border-[var(--border-color)]">
-          <div className="max-w-7xl mx-auto px-4 flex justify-end items-center h-10">
-            <button onClick={() => setOpen(true)} className="bg-burgundy text-white px-5 py-2 text-[10px] tracking-[0.15em] font-sans font-semibold mr-3 uppercase">{t('nav.book')}</button>
-            <button onClick={() => setMenuOpen(false)} className="text-[var(--text)] p-1"><X size={28} /></button>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12 overflow-y-auto" style={{ maxHeight: "calc(100vh - 120px)" }}>
-          <div className="flex flex-col gap-6">
-            {MENU_L.map(({ l, active }) => <a key={l} href="#" onClick={() => setMenuOpen(false)} className={`text-2xl lg:text-3xl font-serif tracking-widest hover:text-burgundy transition-colors ${active ? "text-burgundy" : ""}`}>{l}</a>)}
-          </div>
-          <div className="flex flex-col gap-6">
-            {MENU_R.map(({ l, badge }) => (
-              <div key={l} className="flex items-center gap-3">
-                <a href="#" onClick={() => setMenuOpen(false)} className="text-2xl lg:text-3xl font-serif tracking-widest hover:text-burgundy transition-colors">{l}</a>
-                {badge && <span className="text-[9px] bg-burgundy text-white px-2 py-0.5 tracking-wider uppercase">{badge}</span>}
+          {/* Logo */}
+          <a href="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
+            <span className={`text-2xl lg:text-3xl font-logo tracking-[0.5em] font-medium leading-none transition-colors ${scrolled ? "text-charcoal" : "text-white"}`}>DALI</span>
+            <span className={`text-[7px] lg:text-[8px] tracking-[0.5em] font-sans transition-colors ${scrolled ? "text-[var(--text-muted)]" : "text-white/60"}`}>BELLEZA Y RELAJACIÓN</span>
+          </a>
+
+          {/* Right */}
+          <div className="flex gap-4 items-center text-[11px] tracking-wider ml-auto">
+            <div className="relative" ref={langRef}>
+              <button onClick={() => setLangOpen(!langOpen)} className={`hidden lg:flex items-center gap-2 hover:text-burgundy transition-all ${txm} uppercase font-bold py-1`}>
+                {lang === "es" ? <MXFlag /> : <USFlag />}
+                <span>{lang === "es" ? "ESP" : "ENG"}</span>
+                <ChevronDown size={12} className={`transition-transform duration-300 ${langOpen ? "rotate-180" : ""}`} />
+              </button>
+              {/* Dropdown */}
+              <div className={`absolute top-full right-0 mt-2 w-40 bg-[var(--cream)]/90 backdrop-blur-md border border-[var(--border-color)] shadow-xl z-50 transition-all duration-300 origin-top-right ${langOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}`}>
+                <button onClick={() => { setLang("es"); setLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-burgundy hover:text-white transition-colors ${lang === "es" ? "text-burgundy font-bold" : "text-[var(--text)]"}`}>
+                  <MXFlag /> Español
+                </button>
+                <button onClick={() => { setLang("en"); setLangOpen(false); }} className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-burgundy hover:text-white transition-colors ${lang === "en" ? "text-burgundy font-bold" : "text-[var(--text)]"}`}>
+                  <USFlag /> Inglés
+                </button>
               </div>
-            ))}
-          </div>
-          <div className="hidden lg:block">
-            <img src={images.resort} alt="DALI Resort" className="w-full aspect-[4/3] object-cover" loading="lazy" />
-            <p className="text-[11px] tracking-widest text-[var(--text-muted)] mt-4">
-              <a href={siteInfo.mapLink} target="_blank" rel="noreferrer" className="hover:text-teal transition-colors flex items-start gap-1"><MapPin size={12} className="mt-0.5 shrink-0" /> <span>{siteInfo.address}</span></a>
-            </p>
-          </div>
-        </div>
-        <div className="absolute bottom-0 inset-x-0 border-t border-[var(--border-color)] py-4">
-          <div className="max-w-7xl mx-auto px-4 flex flex-wrap gap-6 text-[10px] tracking-widest text-[var(--text-muted)]">
-            {["Why Book With Us?","Airport Pick up","Groceries2go","Hotel Reviews","Contact","FAQs"].map(l => <a key={l} href="#" className="hover:text-[var(--text)] transition-colors">{l}</a>)}
-            <a href="#" className="ml-auto hover:text-[var(--text)] transition-colors">Sitemap</a>
+            </div>
+            <button onClick={() => setOpen(true)} className="bg-burgundy hover:bg-burgundy/90 text-white px-5 py-2 text-[10px] tracking-[0.15em] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-colors uppercase">{t('nav.book')}</button>
           </div>
         </div>
       </div>
-    </>
+
+      {/* Row 2: Persistent Navigation Links */}
+      <div className={`relative z-10 transition-all duration-300 ${scrolled ? "bg-white/80" : "bg-black/20"} backdrop-blur-md border-t border-white/5`}>
+        <div className="max-w-7xl mx-auto px-4 flex justify-center items-center gap-6 md:gap-10 h-10 overflow-x-auto no-scrollbar">
+          {NAV_LINKS.map(l => (
+            <a key={l.name} href={l.href} className={`text-[9px] md:text-[11px] tracking-[0.15em] font-sans whitespace-nowrap hover:text-burgundy transition-colors ${scrolled ? "text-[var(--text)]" : "text-white/80"}`}>
+              {l.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    </header>
   );
 }
 
@@ -231,7 +190,7 @@ function InfoSections() {
   return (
     <>
       {/* About */}
-      <section className="py-20 lg:py-28 bg-[var(--cream)]">
+      <section id="experiencia" className="py-20 lg:py-28 bg-[var(--cream)]">
         <Reveal className="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <p className="text-sm font-sans leading-[1.9] text-[var(--text-muted)] tracking-wide text-justify">
             {t('about.description')}
@@ -249,7 +208,7 @@ function InfoSections() {
    TREATMENT MENU
    ═══════════════════════════════════════════════════════════════ */
 function TreatmentMenu() {
-  const [cat, setCat] = useState("BRIDAL PACKAGE");
+  const [cat, setCat] = useState("Salud Cutánea");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [imgIdx, setImgIdx] = useState(0);
   const { addItem } = useCart();
@@ -257,12 +216,12 @@ function TreatmentMenu() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const filtered = treatments.filter(t => t.category === cat);
-  const catImgs = CATEGORY_IMAGES[cat] || [images.massage];
+  const catImgs = CATEGORY_IMAGES[cat] || [images.saludCutanea];
 
   const scroll = (d: "l" | "r") => scrollRef.current?.scrollBy({ left: d === "l" ? -200 : 200, behavior: "smooth" });
 
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-b from-[var(--cream)] to-white">
+    <section id="tratamientos" className="py-20 lg:py-28 bg-gradient-to-b from-[var(--cream)] to-white">
       <Reveal className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-serif tracking-widest italic text-center mb-14">{t('menu.title')}</h2>
         {/* Pill carousel */}
@@ -334,7 +293,7 @@ function Tripadvisor() {
           <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs font-bold">RE</div>
           <div className="text-left"><span className="text-sm font-sans font-semibold">Rick Ellerbeck</span><span className="text-xs text-[var(--text-muted)] ml-2">From Tripadvisor</span></div>
         </div>
-        <div className="flex justify-center gap-0.5 mb-8">{[1,2,3,4,5].map(s => <Star key={s} size={16} className="fill-yellow-400 text-yellow-400" />)}</div>
+        <div className="flex justify-center gap-0.5 mb-8">{[1, 2, 3, 4, 5].map(s => <Star key={s} size={16} className="fill-yellow-400 text-yellow-400" />)}</div>
         <button className="border border-[var(--text)]/30 px-10 py-3 tracking-[0.2em] text-[10px] font-sans uppercase hover:bg-[var(--text)] hover:text-[var(--cream)] transition-all active:scale-95">{t('reviews.btn')}</button>
         <div className="flex justify-center gap-5 mt-12">
           <a href={siteInfo.social.facebook} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-[var(--text)]/20 flex items-center justify-center text-[var(--text)]/60 hover:text-burgundy hover:border-burgundy transition-all hover:-translate-y-1" aria-label="Facebook">
@@ -383,13 +342,13 @@ function CartDrawer() {
               <div>
                 <label className="text-[9px] tracking-widest text-[var(--text-muted)] uppercase block mb-1">{t('cart.hour')}</label>
                 <select value={hour} onChange={e => setHour(e.target.value)} className="w-full border border-[var(--border-color)] bg-transparent px-3 py-2.5 text-xs font-sans focus:outline-none focus:border-burgundy transition-colors appearance-none">
-                  {["10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM","6:00 PM","7:00 PM"].map(h => <option key={h} value={h} className="text-black">{h}</option>)}
+                  {["10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM"].map(h => <option key={h} value={h} className="text-black">{h}</option>)}
                 </select>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div><label className="text-[9px] tracking-widest text-[var(--text-muted)] uppercase block mb-1 flex items-center gap-1"><Users size={12} /> {t('cart.people')}</label>
-                <div className="flex items-center border border-[var(--border-color)]"><button onClick={() => setPeople(Math.max(1,people-1))} className="px-3 py-2 text-[var(--text-muted)] hover:text-burgundy"><Minus size={12} /></button><span className="flex-1 text-center text-xs">{people}</span><button onClick={() => setPeople(people+1)} className="px-3 py-2 text-[var(--text-muted)] hover:text-burgundy"><Plus size={12} /></button></div>
+                <div className="flex items-center border border-[var(--border-color)]"><button onClick={() => setPeople(Math.max(1, people - 1))} className="px-3 py-2 text-[var(--text-muted)] hover:text-burgundy"><Minus size={12} /></button><span className="flex-1 text-center text-xs">{people}</span><button onClick={() => setPeople(people + 1)} className="px-3 py-2 text-[var(--text-muted)] hover:text-burgundy"><Plus size={12} /></button></div>
               </div>
               <div><label className="text-[9px] tracking-widest text-[var(--text-muted)] uppercase block mb-1 flex items-center gap-1"><Tag size={12} /> {t('cart.promo')}</label><input type="text" value={promo} onChange={e => setPromo(e.target.value)} placeholder={t('cart.promoPlaceholder')} className="w-full border border-[var(--border-color)] bg-transparent px-3 py-2.5 text-xs font-sans focus:outline-none focus:border-burgundy transition-colors placeholder:text-[var(--text-muted)]/40" /></div>
             </div>
@@ -403,7 +362,7 @@ function CartDrawer() {
                   <div className="w-16 h-20 bg-gray-200 overflow-hidden shrink-0">{item.imageUrl && <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />}</div>
                   <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0">
                     <div><div className="flex justify-between items-start gap-2"><h4 className="text-xs font-serif tracking-wider uppercase truncate">{item.name}</h4><button onClick={() => removeItem(item.id)} className="text-[var(--text-muted)] hover:text-red-500 transition-colors shrink-0"><Trash2 size={12} /></button></div><p className="text-[9px] tracking-widest font-sans text-burgundy uppercase mt-0.5">{item.duration}</p></div>
-                    <div className="flex justify-between items-end"><span className="text-xs font-sans tracking-wider font-semibold">${(item.price||0)*item.quantity} USD</span><div className="flex items-center border border-[var(--border-color)]"><button onClick={() => updateQty(item.id,item.quantity-1)} className="px-2 py-1 text-[var(--text-muted)]"><Minus size={10} /></button><span className="text-[10px] font-sans w-5 text-center">{item.quantity}</span><button onClick={() => updateQty(item.id,item.quantity+1)} className="px-2 py-1 text-[var(--text-muted)]"><Plus size={10} /></button></div></div>
+                    <div className="flex justify-between items-end"><span className="text-xs font-sans tracking-wider font-semibold">${(item.price || 0) * item.quantity} USD</span><div className="flex items-center border border-[var(--border-color)]"><button onClick={() => updateQty(item.id, item.quantity - 1)} className="px-2 py-1 text-[var(--text-muted)]"><Minus size={10} /></button><span className="text-[10px] font-sans w-5 text-center">{item.quantity}</span><button onClick={() => updateQty(item.id, item.quantity + 1)} className="px-2 py-1 text-[var(--text-muted)]"><Plus size={10} /></button></div></div>
                   </div>
                 </div>
               ))}
@@ -428,28 +387,47 @@ function CartDrawer() {
 function GallerySection() {
   const { t } = useLanguage();
   return (
-    <section className="py-20 lg:py-28 bg-[var(--cream)] overflow-hidden">
+    <section id="galeria" className="py-20 lg:py-28 bg-[var(--cream)] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 mb-10 md:mb-16 text-center">
         <Reveal>
           <h2 className="text-3xl md:text-5xl font-serif text-[var(--navy)] tracking-wider">Galería</h2>
           <div className="w-12 h-0.5 bg-burgundy mx-auto mt-6" />
         </Reveal>
       </div>
-      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 lg:px-8 pb-8 no-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        {galleryImages.map((img, i) => (
-          <div key={i} className="shrink-0 w-[85vw] md:w-[45vw] lg:w-[30vw] aspect-[4/5] overflow-hidden snap-center group">
-            <img 
-              src={img} 
-              alt={`Galeria ${i + 1}`} 
-              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-              loading="lazy" 
-            />
-          </div>
-        ))}
+
+      {/* Infinite Ticker Container */}
+      <div className="relative">
+        <div className="flex gap-4 animate-ticker hover:pause-animation">
+          {[...galleryImages, ...galleryImages].map((img, i) => (
+            <div key={i} className="shrink-0 w-[75vw] md:w-[40vw] lg:w-[25vw] aspect-[4/5] overflow-hidden group rounded-lg shadow-lg">
+              <img
+                src={img}
+                alt={`Galeria ${i + 1}`}
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
       </div>
+
       <style>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
+        @keyframes ticker {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-50% - 0.5rem)); }
+        }
+        .animate-ticker {
+          width: fit-content;
+          animation: ticker 30s linear infinite;
+          padding: 0 1rem;
+        }
+        .animate-ticker:hover {
+          animation-play-state: paused;
+        }
+        @media (min-width: 1024px) {
+          .animate-ticker {
+            animation-duration: 45s;
+          }
         }
       `}</style>
     </section>
@@ -471,23 +449,23 @@ function ContactInfoSection() {
             <img src={images.waiting} alt="Te Esperamos" className="w-full h-full object-cover" loading="lazy" />
           </div>
         </Reveal>
-        
+
         {/* Right Side: Info */}
         <Reveal className="space-y-10 text-white">
           <div className="space-y-4">
             <h2 className="text-3xl lg:text-4xl font-serif tracking-wider text-cream">Te estamos esperando</h2>
             <div className="w-12 h-0.5 bg-burgundy" />
           </div>
-          
+
           <div className="space-y-8">
             <div className="space-y-3">
               <h3 className="text-[12px] font-sans text-cream/70 tracking-[0.2em] uppercase">Horarios de Atención</h3>
               <p className="text-sm font-sans tracking-wide leading-relaxed font-light text-white/90">
-                {siteInfo.schedule.weekdays} <br/>
+                {siteInfo.schedule.weekdays} <br />
                 {siteInfo.schedule.weekend}
               </p>
             </div>
-            
+
             <div className="space-y-3">
               <h3 className="text-[12px] font-sans text-cream/70 tracking-[0.2em] uppercase">Contacto y Redes Sociales</h3>
               <p className="text-sm font-sans tracking-wide leading-relaxed font-light text-white/90 mb-4 flex items-center gap-2">
@@ -514,13 +492,13 @@ function ContactInfoSection() {
 
 function InteractiveMapSection() {
   return (
-    <section className="bg-cream py-20 px-4">
+    <section id="ubicacion" className="bg-cream py-20 px-4">
       <div className="max-w-6xl mx-auto space-y-12">
         <Reveal className="text-center">
           <h2 className="text-4xl lg:text-5xl font-serif text-[var(--navy)] tracking-wider">Encuéntranos</h2>
-          <p className="font-sans text-[var(--text-muted)] text-sm tracking-widest mt-4">Visítanos en nuestra ubicación privilegiada</p>
+          <p className="font-sans text-[var(--text-muted)] text-sm tracking-widest mt-4">Visítanos en nuestra ubicación</p>
         </Reveal>
-        
+
         <Reveal className="relative w-full aspect-[4/3] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl border-4 border-white isolate">
           {/* Map Overlay Card */}
           <div className="absolute top-1/2 -translate-y-1/2 left-4 md:left-8 lg:left-12 bg-white/95 backdrop-blur-md p-8 md:p-10 rounded-2xl shadow-xl z-20 max-w-[320px] md:max-w-sm hidden md:block">
@@ -530,42 +508,42 @@ function InteractiveMapSection() {
             <p className="font-sans text-sm tracking-wide text-gray-600 leading-relaxed mb-8">
               {siteInfo.address}
             </p>
-            <a 
-              href={siteInfo.mapLink} 
-              target="_blank" 
-              rel="noreferrer" 
+            <a
+              href={siteInfo.mapLink}
+              target="_blank"
+              rel="noreferrer"
               className="inline-block w-full text-center bg-burgundy hover:bg-burgundy/90 text-white font-sans text-xs tracking-[0.2em] uppercase py-3.5 px-6 rounded-full transition-all border border-transparent shadow-[0_4px_15px_-3px_rgba(99,11,17,0.4)]"
             >
               Ver en Google Maps
             </a>
           </div>
-          
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.9317578796857!2d-102.53746869999999!3d22.7655593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86824eca0610d625%3A0xae8c2b63b9e23152!2sDALI%20SPA!5e0!3m2!1ses-419!2smx!4v1775606047233!5m2!1ses-419!2smx" 
+
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.9317578796857!2d-102.53746869999999!3d22.7655593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86824eca0610d625%3A0xae8c2b63b9e23152!2sDALI%20SPA!5e0!3m2!1ses-419!2smx!4v1775606047233!5m2!1ses-419!2smx"
             className="absolute inset-0 w-full h-full grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000 z-10"
-            style={{border:0}} 
+            style={{ border: 0 }}
             allowFullScreen={true}
-            loading="lazy" 
+            loading="lazy"
             referrerPolicy="no-referrer-when-downgrade">
           </iframe>
         </Reveal>
-        
+
         {/* Mobile Info Card (Visible only on small screens below map) */}
         <div className="md:hidden bg-white p-8 rounded-2xl shadow-xl mt-4 text-center">
-            <h3 className="text-xl font-serif tracking-wider text-[var(--burgundy)] mb-4">
-              {siteInfo.address.split(',')[1]?.trim() || "Guadalupe"}
-            </h3>
-            <p className="font-sans text-sm tracking-wide text-gray-600 leading-relaxed mb-6">
-              {siteInfo.address}
-            </p>
-            <a 
-              href={siteInfo.mapLink} 
-              target="_blank" 
-              rel="noreferrer" 
-              className="inline-block text-center bg-burgundy text-white font-sans text-xs tracking-[0.2em] uppercase py-3 px-6 rounded-full"
-            >
-              Ver en Maps
-            </a>
+          <h3 className="text-xl font-serif tracking-wider text-[var(--burgundy)] mb-4">
+            {siteInfo.address.split(',')[1]?.trim() || "Guadalupe"}
+          </h3>
+          <p className="font-sans text-sm tracking-wide text-gray-600 leading-relaxed mb-6">
+            {siteInfo.address}
+          </p>
+          <a
+            href={siteInfo.mapLink}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block text-center bg-burgundy text-white font-sans text-xs tracking-[0.2em] uppercase py-3 px-6 rounded-full"
+          >
+            Ver en Maps
+          </a>
         </div>
       </div>
     </section>
@@ -576,11 +554,11 @@ function FAQSection() {
   const faqs = [
     { q: "¿Con cuánta anticipación debo llegar?", a: "Le sugerimos llegar al menos 15 minutos antes de su cita reservada para permitir el tiempo suficiente para el proceso de registro, cambiar su vestimenta y comenzar a relajarse adecuadamente en nuestras instalaciones." },
     { q: "¿Qué debo llevar?", a: "Le proporcionaremos una bata limpia, toallas y amenidades exclusivas de baño. Sin embargo, si desea utilizar las instalaciones de hidroterapia con mayor comodidad, le sugerimos traer su propio traje de baño." },
-    { q: "¿Ofrecen servicios para embarazadas?", a: "Cuidamos el bienestar de cada huésped. Contamos con terapias específicas adaptadas para mujeres embarazadas (a partir del segundo trimestre). Por favor, indíquelo al momento de solicitar su reserva." },
+    { q: "¿Cuentan con estacionamiento?", a: "Sí, contamos con estacionamiento privado y seguro para todos nuestros huéspedes durante la duración de sus tratamientos en el spa." },
   ];
 
   return (
-    <section className="bg-cream py-20 px-4 border-t border-[var(--border-color)]/20">
+    <section id="faq" className="bg-cream py-20 px-4 border-t border-[var(--border-color)]/20">
       <div className="max-w-4xl mx-auto">
         <Reveal className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-serif text-[var(--navy)] tracking-wider">Preguntas Frecuentes</h2>

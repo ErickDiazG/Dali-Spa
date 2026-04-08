@@ -1,23 +1,21 @@
 export const images = {
-  hero: "/images/Dali-hero.png",
-  massage: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&q=80&w=1200",
-  facial: "https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?auto=format&fit=crop&q=80&w=1200",
-  body: "https://images.unsplash.com/photo-1519415387722-a1c3bbff7158?auto=format&fit=crop&q=80&w=1200",
-  bridal: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=1200",
-  facilities: "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?auto=format&fit=crop&q=80&w=1200",
-  hydrotherapy: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=2000",
-  resort: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=800",
-  skin: "/images/skin.jpg",
-  waiting: "/images/Te esperamos.jpg",
+  hero: "/images/Dali-hero.webp",
+  saludCutanea: "/images/salud-cutanea.jpg",
+  advancedCare: "/images/advanced-care.jpg",
+  renovacion: "/images/renovación.jpg",
+  body: "/images/body.jpg",
+  nailsBeauty: "/images/nails-and-beauty.jpg",
+  skin: "/images/skin.webp",
+  waiting: "/images/Te esperamos.webp",
 };
 
 export const galleryImages = [
-  "/images/galeria1.jpg",
-  "/images/galeria2.jpg",
-  "/images/galeria3.jpg",
-  "/images/galeria4.jpg",
-  "/images/galeria5.jpg",
-  "/images/galeria6.jpg",
+  "/images/galeria1.webp",
+  "/images/galeria2.webp",
+  "/images/galeria3.webp",
+  "/images/galeria4.webp",
+  "/images/galeria5.webp",
+  "/images/galeria6.webp",
 ];
 
 export interface SpaService {
@@ -35,45 +33,57 @@ export interface CartItem extends SpaService {
 }
 
 export const treatments: SpaService[] = [
-  { id: "b1", category: "BRIDAL PACKAGE", name: "Hair Style", description: "Professional bridal hairstyling with elegant updos, curls, or sleek looks tailored to your special day.", duration: "90 MIN" },
-  { id: "b2", category: "BRIDAL PACKAGE", name: "Bride Package", description: "Complete bridal experience including hair, makeup, facial, and relaxation massage for the perfect wedding day glow.", duration: "180 MIN" },
-  { id: "b3", category: "BRIDAL PACKAGE", name: "Make up", description: "Professional makeup application using premium products for a long-lasting, photo-ready bridal look.", duration: "60 MIN" },
-  { id: "s1", category: "SIGNATURE EXPERIENCES", name: "Tatewari Ritual", description: "Our signature holistic experience combining ancient healing traditions with modern spa techniques for total body renewal.", duration: "120 MIN", price: 295 },
-  { id: "s2", category: "SIGNATURE EXPERIENCES", name: "Pacific Sunset Journey", description: "An indulgent body treatment inspired by the healing energy of the Pacific Ocean, with volcanic sand exfoliation and marine wrap.", duration: "90 MIN", price: 225 },
-  { id: "m1", category: "MASSAGE", name: "Swedish Relaxation", description: "Classic full-body massage using long, flowing strokes to improve circulation and promote deep relaxation.", duration: "50/80 MIN", price: 135 },
-  { id: "m2", category: "MASSAGE", name: "Deep Tissue", description: "Therapeutic massage targeting deep muscle layers to release chronic tension, knots, and muscle stiffness.", duration: "50/80 MIN", price: 155 },
-  { id: "m3", category: "MASSAGE", name: "Hot Stone Therapy", description: "Heated volcanic stones placed on key points of the body to melt away tension and restore energy flow.", duration: "80 MIN", price: 175 },
-  { id: "m4", category: "MASSAGE", name: "Aromatherapy Massage", description: "A sensory journey combining therapeutic essential oils with gentle massage techniques for total mind-body balance.", duration: "50/80 MIN", price: 145 },
-  { id: "br1", category: "BODY RENEWAL", name: "Volcanic Mud Wrap", description: "Mineral-rich volcanic clay detoxifies and smooths the skin while providing deep emotional grounding.", duration: "50 MIN", price: 135 },
-  { id: "br2", category: "BODY RENEWAL", name: "Agave Nectar Scrub", description: "Organic blue agave nectar and sea salts gently exfoliate, leaving skin luminous and silky smooth.", duration: "50 MIN", price: 125 },
-  { id: "br3", category: "BODY RENEWAL", name: "Tropical Coconut Wrap", description: "Nourishing coconut oil wrap that deeply hydrates and softens sun-exposed skin.", duration: "50 MIN", price: 130 },
-  { id: "f1", category: "FACIAL CARE", name: "DALI Radiance Facial", description: "Advanced vitamin C treatment to brighten, firm, and protect skin from environmental damage.", duration: "50 MIN", price: 145 },
-  { id: "f2", category: "FACIAL CARE", name: "Hydra-Intensive Therapy", description: "Marine botanical extracts plump and revitalize dehydrated skin with intensive moisture infusion.", duration: "80 MIN", price: 175 },
-  { id: "f3", category: "FACIAL CARE", name: "Anti-Aging Renewal", description: "Collagen-boosting facial using peptide technology to reduce fine lines and restore youthful firmness.", duration: "80 MIN", price: 195 },
-  { id: "c1", category: "COUPLE'S EXPERIENCE", name: "Romantic Escape", description: "Side-by-side massage in our private couple's suite with champagne and chocolate-covered strawberries.", duration: "80 MIN", price: 350 },
-  { id: "c2", category: "COUPLE'S EXPERIENCE", name: "Harmony Ritual", description: "A synchronized body scrub and massage experience designed to reconnect couples through shared relaxation.", duration: "120 MIN", price: 450 },
-  { id: "jm1", category: "JUST FOR MEN", name: "Executive De-Stress", description: "Targeted deep tissue massage focused on neck, shoulders, and back — designed for high-performance individuals.", duration: "50 MIN", price: 145 },
-  { id: "jm2", category: "JUST FOR MEN", name: "Men's Power Facial", description: "Deep-cleansing facial addressing razor burn, ingrown hairs, and environmental damage unique to men's skin.", duration: "50 MIN", price: 135 },
+  // Salud Cutánea
+  { id: "sc1", category: "Salud Cutánea", name: "Limpieza Profunda", description: "Tratamiento esencial para purificar la piel, eliminando impurezas y células muertas para revelar un rostro fresco y luminoso.", duration: "50 MIN" },
+  { id: "sc2", category: "Salud Cutánea", name: "Tratamiento Antiacné", description: "Cuidado especializado para pieles propensas al acné, utilizando activos purificantes y calmantes para reducir la inflamación y prevenir brotes.", duration: "60 MIN" },
+  { id: "sc3", category: "Salud Cutánea", name: "Sistemas de Hidratación y Oxigenación", description: "Infusión intensiva de humedad y oxígeno que revitaliza las células, combatiendo la opacidad y previniendo el envejecimiento prematuro.", duration: "60 MIN" },
+  { id: "sc4", category: "Salud Cutánea", name: "Desensibilizante", description: "Terapia suave y reconfortante diseñada específicamente para calmar pieles reactivas, enrojecidas o sensibles, restaurando su barrera natural.", duration: "50 MIN" },
+  { id: "sc5", category: "Salud Cutánea", name: "Promo: Faciales 3x2", description: "Aprovecha nuestra promoción especial y recibe 3 faciales básicos al precio de 2. Ideal para mantener un cuidado continuo de tu piel.", duration: "50 MIN" },
+
+  // Advanced Care
+  { id: "ac1", category: "Advanced Care", name: "Hydrafacial", description: "La tecnología más avanzada para limpiar, extraer e hidratar la piel de manera profunda, utilizando sérums súper efectivos.", duration: "60 MIN" },
+  { id: "ac2", category: "Advanced Care", name: "Micropunción (Dermapen)", description: "Tratamiento regenerador que estimula la producción de colágeno y elastina, mejorando la textura de la piel, cicatrices y líneas finas.", duration: "60 MIN" },
+  { id: "ac3", category: "Advanced Care", name: "Lifting Facial", description: "Procedimiento no invasivo enfocado en tensar y elevar los tejidos del rostro, proporcionando un efecto rejuvenecedor y firmeza inmediata.", duration: "80 MIN" },
+  { id: "ac4", category: "Advanced Care", name: "Rejuvenecimiento Láser", description: "Terapia de luz pulsada de alta precisión para tratar manchas, unificar el tono y estimular la renovación celular para una piel visiblemente más joven.", duration: "60 MIN" },
+  { id: "ac5", category: "Advanced Care", name: "Láminas de Oro", description: "Exclusivo facial que incorpora los beneficios antioxidantes y tensores del oro de 24 quilates, aportando un brillo espectacular y lujo absoluto.", duration: "80 MIN" },
+
+  // Specialty & Bio-Regen
+  { id: "sb1", category: "Specialty & Bio-Regen", name: "Exosomas PDRN", description: "Terapia regenerativa celular profunda ideal para reparar la piel dañada, promover la curación y rejuvenecer utilizando exosomas avanzados.", duration: "60 MIN" },
+  { id: "sb2", category: "Specialty & Bio-Regen", name: "PDRN de Salmón (ADN de Salmón)", description: "Potente tratamiento bioestimulador que utiliza polinucleótidos para reparar tejidos, mejorar la elasticidad y revertir el daño solar.", duration: "60 MIN" },
+  { id: "sb3", category: "Specialty & Bio-Regen", name: "Plasma Rico en Plaquetas", description: "Bio-revitalización utilizando tu propio plasma para estimular la regeneración tisular, logrando mayor luminosidad, firmeza y reducción de líneas de expresión.", duration: "90 MIN" },
+  { id: "sb4", category: "Specialty & Bio-Regen", name: "Fibroblast", description: "Técnica innovadora tipo arco eléctrico para tensar la piel, reduciendo eficazmente estrías, flacidez y párpados caídos sin cirugía.", duration: "60 MIN" },
+  { id: "sb5", category: "Specialty & Bio-Regen", name: "Dermaplaning", description: "Exfoliación física controlada que elimina el vello fino y células muertas, logrando una superficie cutánea ultra suave y facilitando la absorción de productos.", duration: "50 MIN" },
+  { id: "sb6", category: "Specialty & Bio-Regen", name: "Radiofrecuencia", description: "Tecnología térmica de ondas electromagnéticas que estimula la formación de nuevo colágeno, mejorando progresivamente la flacidez facial o corporal.", duration: "50 MIN" },
+
+  // Body & Wellness
+  { id: "bw1", category: "Body & Wellness", name: "Masaje Relajante", description: "Experiencia enfocada en aliviar la fatiga mental y física a través de masoterapia con pases suaves y rítmicos. Induce un estado de paz profunda.", duration: "50/80 MIN" },
+  { id: "bw2", category: "Body & Wellness", name: "Masaje Descontracturante", description: "Terapia firme y focalizada para disolver nudos de tensión, espasmos musculares y dolor crónico, restaurando la movilidad y el confort.", duration: "50/80 MIN" },
+  { id: "bw3", category: "Body & Wellness", name: "Presoterapia", description: "Tratamiento de compresión neumática controlada diseñado para mejorar el drenaje linfático, reducir retención de líquidos y eliminar toxinas.", duration: "45 MIN" },
+  { id: "bw4", category: "Body & Wellness", name: "Bundle: Masaje + Spa de pies", description: "El descanso definitivo. Combina un reconfortante masaje corporal con un exquisito spa revitalizante específico para pies cansados.", duration: "90 MIN" },
+  { id: "bw5", category: "Body & Wellness", name: "Bundle: Masaje Descontracturante + Presoterapia", description: "Programa integral de recuperación para relajar musculatura profunda y activar simultáneamente el sistema linfático. Resultados inmediatos.", duration: "90 MIN" },
+
+  // Nails & Beauty
+  { id: "nb1", category: "Nails & Beauty", name: "Manicura Spa (+ Gel de regalo)", description: "Cuidado completo para tus manos que incluye exfoliación, hidratación profunda, arreglo de cutículas y aplicación gratuita de esmalte en gel.", duration: "60 MIN" },
+  { id: "nb2", category: "Nails & Beauty", name: "Pedicura Spa (+ Détox iónico de regalo)", description: "Ritual consentidor para los pies con servicio especializado de pedicura. Incluye sesión de détox iónico complementaria para limpiar el organismo.", duration: "80 MIN" },
+  { id: "nb3", category: "Nails & Beauty", name: "Hydralips", description: "Tratamiento hidratante intensivo y voluminizador sin agujas para suavizar, mejorar la textura y rejuvenecer el contorno de tus labios.", duration: "30 MIN", price: 550 },
+  { id: "nb4", category: "Nails & Beauty", name: "Lifting de Pestañas", description: "Elevación natural desde la raíz que da un efecto de mayor longitud y curvatura a tus pestañas, realzando la mirada sin necesidad de extensiones.", duration: "60 MIN" },
+  { id: "nb5", category: "Nails & Beauty", name: "Depilación (Cejas, bigote o patilla)", description: "Servicio de depilación precisa y cuidadosa adaptada para áreas delicadas del rostro, dejando la piel libre de vello y suave.", duration: "15 MIN" },
 ];
 
 export const CATEGORIES = [
-  "BRIDAL PACKAGE",
-  "SIGNATURE EXPERIENCES",
-  "MASSAGE",
-  "BODY RENEWAL",
-  "FACIAL CARE",
-  "COUPLE'S EXPERIENCE",
-  "JUST FOR MEN",
+  "Salud Cutánea",
+  "Advanced Care",
+  "Specialty & Bio-Regen",
+  "Body & Wellness",
+  "Nails & Beauty",
 ];
 
 export const CATEGORY_IMAGES: Record<string, string[]> = {
-  "BRIDAL PACKAGE": [images.bridal, images.facial],
-  "SIGNATURE EXPERIENCES": [images.massage, images.hydrotherapy],
-  "MASSAGE": [images.massage, images.body],
-  "BODY RENEWAL": [images.body, images.hydrotherapy],
-  "FACIAL CARE": [images.facial, images.massage],
-  "COUPLE'S EXPERIENCE": [images.hydrotherapy, images.massage],
-  "JUST FOR MEN": [images.body, images.facial],
+  "Salud Cutánea": [images.saludCutanea, images.skin],
+  "Advanced Care": [images.advancedCare, images.renovacion],
+  "Specialty & Bio-Regen": [images.renovacion, images.skin],
+  "Body & Wellness": [images.body, images.saludCutanea],
+  "Nails & Beauty": [images.nailsBeauty, images.saludCutanea],
 };
 
 export const siteInfo = {

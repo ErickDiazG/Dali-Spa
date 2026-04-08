@@ -1,4 +1,4 @@
-# DALI SPA — Luxury Wellness Website
+# DALI SPA — Belleza y Relajacion Website
 
 A premium spa website built with **Astro** and **Tailwind CSS v4**, featuring a pixel-perfect luxury design with interactive React islands.
 
