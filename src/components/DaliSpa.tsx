@@ -1,8 +1,7 @@
-import { useState, useEffect, useCallback, useRef, createContext, useContext } from "react";
-import type { SpaService } from "../data";
-import { images, treatments, CATEGORIES, CATEGORY_IMAGES, siteInfo, galleryImages, GENERAL_FRESHA_URL } from "../data";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { images, featuredServices, siteInfo, galleryImages, GENERAL_FRESHA_URL } from "../data";
 import {
-  Menu, X, Plus, Minus, ChevronLeft, ChevronRight, ChevronDown,
+  Menu, X, ChevronLeft, ChevronRight, ChevronDown, Plus,
   CalendarDays, Users, Star, Phone, MapPin
 } from "lucide-react";
 import { LanguageProvider, useLanguage } from "../context/LanguageContext";
@@ -161,97 +160,80 @@ function Hero() {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   TREATMENT MENU
+   FEATURED SERVICES SECTION
    ═══════════════════════════════════════════════════════════════ */
 function TreatmentMenu({ onOpenBooking }: { onOpenBooking: (url: string) => void }) {
-  const [cat, setCat] = useState("sc");
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [imgIdx, setImgIdx] = useState(0);
   const { t } = useLanguage();
-  const scrollRefDesktop = useRef<HTMLDivElement>(null);
-  const scrollRefMobile = useRef<HTMLDivElement>(null);
-
-  const filtered = treatments.filter(t => t.category === cat);
-  const catImgs = CATEGORY_IMAGES[cat] || [images.saludCutanea];
-
-  const scrollDesk = (d: "l" | "r") => scrollRefDesktop.current?.scrollBy({ left: d === "l" ? -200 : 200, behavior: "smooth" });
-  const scrollMob = (d: "l" | "r") => scrollRefMobile.current?.scrollBy({ left: d === "l" ? -200 : 200, behavior: "smooth" });
-
-  const renderCarousel = (isMobile: boolean) => (
-    <div className="relative flex items-center justify-center gap-2 w-full">
-      {isMobile && <button onClick={() => scrollMob("l")} className="shrink-0 w-8 h-8 rounded-full bg-transparent border border-gray-300 hover:border-burgundy text-[var(--navy)] hover:text-burgundy flex items-center justify-center transition-colors shadow-sm"><ChevronLeft size={16} /></button>}
-      
-      <div ref={isMobile ? scrollRefMobile : scrollRefDesktop} className="flex gap-2 lg:gap-3 overflow-x-auto scrollbar-hide scroll-smooth py-3 px-1 max-w-full lg:justify-center">
-        {CATEGORIES.map(c => (
-          <button key={c} onClick={() => { setCat(c); setExpandedId(null); setImgIdx(0); }}
-            className={`shrink-0 px-5 py-2.5 text-[9px] lg:text-[10px] tracking-[0.15em] font-sans font-semibold uppercase transition-all whitespace-nowrap rounded-[4px] border ${cat === c ? "bg-burgundy text-white border-burgundy shadow-md scale-105" : "bg-transparent text-[var(--text-muted)] border-[var(--border-color)] hover:border-burgundy hover:text-burgundy"}`}>
-            {t(`treatments.categories.${c}` as any)}
-          </button>
-        ))}
-      </div>
-
-      {isMobile && <button onClick={() => scrollMob("r")} className="shrink-0 w-8 h-8 rounded-full bg-transparent border border-gray-300 hover:border-burgundy text-[var(--navy)] hover:text-burgundy flex items-center justify-center transition-colors shadow-sm"><ChevronRight size={16} /></button>}
-    </div>
-  );
 
   return (
     <section id="tratamientos" className="py-20 lg:py-28 bg-gradient-to-b from-[var(--cream)] to-white">
       <Reveal className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-serif tracking-widest italic text-center mb-10 lg:mb-14">{t('menu.title')}</h2>
+        {/* Header */}
+        <div className="text-center mb-14">
+          <p className="text-[var(--burgundy)] text-[10px] tracking-[0.4em] uppercase font-sans font-bold mb-4">Nuestro Menú</p>
+          <h2 className="text-3xl md:text-4xl font-serif tracking-widest italic text-[var(--navy)]">{t('menu.title')}</h2>
+          <div className="w-10 h-0.5 bg-[var(--burgundy)] mx-auto mt-6" />
+        </div>
         
         <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
           
-          {/* Desktop Pill carousel (Hidden on Mobile) */}
-          <div className="hidden lg:flex col-span-12 mb-4">
-            {renderCarousel(false)}
-          </div>
-
           {/* Image */}
           <div className="order-1 lg:order-none lg:col-span-5 relative aspect-[4/5] lg:aspect-square overflow-hidden rounded-2xl shadow-2xl xl:max-w-md mx-auto w-full">
-            <img src={catImgs[imgIdx]} alt={t(`treatments.categories.${cat}` as any)} className="w-full h-full object-cover object-top transition-all duration-700 luxury-hover" loading="lazy" />
-          </div>
-
-          {/* Mobile Pill carousel (Below Image, Hidden on Desktop) */}
-          <div className="order-2 lg:hidden w-full">
-            {renderCarousel(true)}
+            <img src={images.saludCutanea} alt="Servicios Destacados" className="w-full h-full object-cover object-top transition-all duration-700 luxury-hover" loading="lazy" />
           </div>
 
           {/* List */}
-          <div className="order-3 lg:order-none lg:col-span-7 space-y-2 w-full">
-            {filtered.map(item => (
+          <div className="order-3 lg:order-none lg:col-span-7 space-y-2 w-full mt-4 lg:mt-0">
+            {featuredServices.map(item => (
               <div key={item.id} className="border-b border-[var(--border-color)] group">
                 <button onClick={() => setExpandedId(expandedId === item.id ? null : item.id)} className="w-full py-6 flex justify-between items-center text-left gap-4">
-                  <div className="flex items-start gap-3">
-                    {item.description && (
-                      <span className={`mt-1 shrink-0 w-6 h-6 border flex items-center justify-center transition-all ${expandedId === item.id ? "bg-teal border-teal text-white shadow-md" : "border-gray-300 text-gray-400 group-hover:border-teal group-hover:text-teal"}`}>
-                        <Plus size={14} className={`transition-transform ${expandedId === item.id ? "rotate-45" : ""}`} />
-                      </span>
-                    )}
+                  <div className="flex items-start gap-4">
+                    <span className={`mt-1 shrink-0 w-6 h-6 border flex items-center justify-center transition-all ${expandedId === item.id ? "bg-[var(--burgundy)] border-[var(--burgundy)] text-white shadow-md" : "border-gray-300 text-[var(--text-muted)] group-hover:border-[var(--burgundy)] group-hover:text-[var(--burgundy)]"}`}>
+                      <Plus size={14} className={`transition-transform duration-300 ${expandedId === item.id ? "rotate-45" : ""}`} />
+                    </span>
                     <div>
-                      <span className="text-base font-serif tracking-wider group-hover:text-teal transition-colors">
-                        {t(`treatments.items.${item.id}.name` as any)}
+                      <span className="text-base font-serif tracking-wider group-hover:text-[var(--burgundy)] transition-colors flex items-center gap-3">
+                        {item.name}
+                        {item.isPackage && <span className="hidden sm:inline-flex items-center gap-1 bg-[var(--burgundy)]/10 text-[var(--burgundy)] text-[8px] font-sans font-bold tracking-widest uppercase px-2 py-0.5 border border-[var(--burgundy)]/20">Paquete</span>}
                       </span>
-                      {item.duration && <span className="text-xs text-[var(--text-muted)] ml-3">({item.duration.toLowerCase().replace(/ min/i, ` ${t('menu.duration' as any)}`)})</span>}
+                      {item.duration && <span className="text-xs text-[var(--text-muted)] mt-1 block font-sans tracking-wide">({item.duration})</span>}
                     </div>
                   </div>
                 </button>
                 <div className={`overflow-hidden transition-all duration-500 ${expandedId === item.id ? "max-h-60 pb-6 opacity-100" : "max-h-0 opacity-0"}`}>
-                  <div className="pl-9">
-                    <p className="text-sm font-sans leading-relaxed text-[var(--text-muted)] tracking-wide mb-4">
-                      {t(`treatments.items.${item.id}.description` as any)}
-                    </p>
-                    {item.price && <p className="text-sm font-sans text-burgundy font-semibold tracking-wider mb-4 text-base">${item.price} MXN</p>}
-                    <button onClick={(e) => { e.stopPropagation(); onOpenBooking(GENERAL_FRESHA_URL); }} className="bg-burgundy hover:bg-burgundy/90 text-white px-6 py-3 tracking-[0.2em] text-[10px] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-all uppercase active:scale-95">{t('nav.book')}</button>
+                  <div className="pl-10">
+                    {item.description && (
+                      <p className="text-sm font-sans leading-relaxed text-[var(--text-muted)] tracking-wide mb-4">
+                        {item.description}
+                      </p>
+                    )}
+                    {item.priceLabel && <p className={`text-sm font-sans tracking-wider mb-5 ${item.priceLabel.includes('Ahorra') ? 'text-green-600 font-medium' : 'text-[var(--burgundy)] font-semibold'}`}>{item.priceLabel}</p>}
+                    <button onClick={(e) => { e.stopPropagation(); onOpenBooking(item.bookingUrl || GENERAL_FRESHA_URL); }} className="bg-[var(--burgundy)] hover:bg-[var(--burgundy)]/90 text-white px-8 py-3 tracking-[0.2em] text-[10px] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-all uppercase active:scale-95">Reservar</button>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* CTA Botón explorar */}
+        <div className="flex justify-center mt-12 lg:mt-16">
+          <a
+            href="/menu"
+            className="group inline-flex items-center gap-3 border border-[var(--burgundy)] text-[var(--burgundy)] hover:bg-[var(--burgundy)] hover:text-white px-10 py-4 text-[10px] tracking-[0.25em] font-sans font-semibold uppercase transition-all duration-500 shadow-sm hover:shadow-lg hover:shadow-[var(--burgundy)]/20"
+          >
+            <span>Explorar Menú Completo</span>
+            <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M1 7h12M8 2l5 5-5 5"/>
+            </svg>
+          </a>
+        </div>
       </Reveal>
     </section>
   );
 }
+
 
 function ReviewsSection() {
   const { t } = useLanguage();
