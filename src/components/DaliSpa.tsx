@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback, useRef, createContext, useContext } from "react";
-import type { CartItem, SpaService } from "../data";
-import { images, treatments, CATEGORIES, CATEGORY_IMAGES, siteInfo, galleryImages } from "../data";
+import type { SpaService } from "../data";
+import { images, treatments, CATEGORIES, CATEGORY_IMAGES, siteInfo, galleryImages, GENERAL_FRESHA_URL } from "../data";
 import {
-  Menu, X, Plus, Minus, Trash2, ChevronLeft, ChevronRight, ChevronDown,
-  CalendarDays, Users, Tag, ShoppingBag, Star, Phone, Globe, User,
-  ExternalLink, MapPin, Clock, Circle
+  Menu, X, Plus, Minus, ChevronLeft, ChevronRight, ChevronDown,
+  CalendarDays, Users, Star, Phone, MapPin
 } from "lucide-react";
 import { LanguageProvider, useLanguage } from "../context/LanguageContext";
+import FreshaModal from "./FreshaModal";
 
 /* ═══════════════════════════════════════════════════════════════
    REVEAL / MOTION
@@ -22,34 +22,6 @@ function Reveal({ children, className = "" }: { children: React.ReactNode, class
   return <div ref={ref} className={`reveal ${vis ? "reveal-visible" : ""} ${className}`}>{children}</div>;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CART CONTEXT
-   ═══════════════════════════════════════════════════════════════ */
-interface CartCtx {
-  items: CartItem[];
-  addItem: (s: SpaService) => void;
-  removeItem: (id: string) => void;
-  updateQty: (id: string, q: number) => void;
-  total: number;
-  count: number;
-  open: boolean;
-  setOpen: (o: boolean) => void;
-}
-const Ctx = createContext<CartCtx | null>(null);
-function useCart() { const c = useContext(Ctx); if (!c) throw new Error("useCart outside provider"); return c; }
-
-function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [open, setOpen] = useState(false);
-  const total = items.reduce((s, i) => s + (i.price || 0) * i.quantity, 0);
-  const count = items.reduce((s, i) => s + i.quantity, 0);
-  const addItem = (svc: SpaService) => {
-    setItems(p => { const e = p.find(i => i.id === svc.id); return e ? p.map(i => i.id === svc.id ? { ...i, quantity: i.quantity + 1 } : i) : [...p, { ...svc, quantity: 1 }]; });
-  };
-  const removeItem = (id: string) => setItems(p => p.filter(i => i.id !== id));
-  const updateQty = (id: string, q: number) => { if (q <= 0) return removeItem(id); setItems(p => p.map(i => i.id === id ? { ...i, quantity: q } : i)); };
-  return <Ctx.Provider value={{ items, addItem, removeItem, updateQty, total, count, open, setOpen }}>{children}</Ctx.Provider>;
-}
 
 /* ═══════════════════════════════════════════════════════════════
    NAVBAR
@@ -87,11 +59,10 @@ const USFlag = () => (
   </svg>
 );
 
-function Navbar() {
+function Navbar({ onOpenBooking }: { onOpenBooking: (url: string) => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const { lang, setLang, t } = useLanguage();
-  const { setOpen } = useCart();
   const langRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -149,7 +120,7 @@ function Navbar() {
                 </button>
               </div>
             </div>
-            <button onClick={() => setOpen(true)} className="hidden md:block bg-burgundy hover:bg-burgundy/90 text-white px-5 py-2 text-[10px] tracking-[0.15em] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-colors uppercase">{t('nav.book')}</button>
+            <button onClick={() => onOpenBooking(GENERAL_FRESHA_URL)} className="hidden md:block bg-burgundy hover:bg-burgundy/90 text-white px-5 py-2 text-[10px] tracking-[0.15em] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-colors uppercase">{t('nav.book')}</button>
           </div>
         </div>
       </div>
@@ -192,11 +163,10 @@ function Hero() {
 /* ═══════════════════════════════════════════════════════════════
    TREATMENT MENU
    ═══════════════════════════════════════════════════════════════ */
-function TreatmentMenu() {
+function TreatmentMenu({ onOpenBooking }: { onOpenBooking: (url: string) => void }) {
   const [cat, setCat] = useState("sc");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [imgIdx, setImgIdx] = useState(0);
-  const { addItem } = useCart();
   const { t } = useLanguage();
   const scrollRefDesktop = useRef<HTMLDivElement>(null);
   const scrollRefMobile = useRef<HTMLDivElement>(null);
@@ -271,7 +241,7 @@ function TreatmentMenu() {
                       {t(`treatments.items.${item.id}.description` as any)}
                     </p>
                     {item.price && <p className="text-sm font-sans text-burgundy font-semibold tracking-wider mb-4 text-base">${item.price} MXN</p>}
-                    <button onClick={(e) => { e.stopPropagation(); addItem({ ...item, imageUrl: catImgs[0] }); }} className="bg-burgundy hover:bg-burgundy/90 text-white px-6 py-3 tracking-[0.2em] text-[10px] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-all uppercase active:scale-95">{t('menu.addCart')}</button>
+                    <button onClick={(e) => { e.stopPropagation(); onOpenBooking(GENERAL_FRESHA_URL); }} className="bg-burgundy hover:bg-burgundy/90 text-white px-6 py-3 tracking-[0.2em] text-[10px] font-sans font-semibold shadow-lg shadow-[var(--burgundy)]/20 transition-all uppercase active:scale-95">{t('nav.book')}</button>
                   </div>
                 </div>
               </div>
@@ -363,148 +333,6 @@ function ReviewsSection() {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   CART DRAWER
-   ═══════════════════════════════════════════════════════════════ */
-function FloatingCart() {
-  const { count, setOpen } = useCart();
-  const [bounce, setBounce] = useState(false);
-
-  useEffect(() => {
-    if (count > 0) {
-      setBounce(true);
-      const timer = setTimeout(() => setBounce(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [count]);
-
-  if (count === 0) return null;
-
-  return (
-    <div className="fixed bottom-6 right-6 z-[60]">
-      <button 
-        onClick={() => setOpen(true)} 
-        className={`bg-burgundy text-white p-4 rounded-full shadow-[0_10px_25px_-5px_rgba(99,11,17,0.6)] flex items-center justify-center hover:bg-burgundy/90 transition-transform duration-300 ${bounce ? 'scale-125' : 'scale-100 hover:scale-110'}`}
-      >
-        <ShoppingBag size={24} />
-        <span className="absolute -top-1 -right-1 bg-white text-burgundy text-[10px] w-6 h-6 flex items-center justify-center rounded-full font-bold shadow-md border border-[var(--border-color)]">
-          {count}
-        </span>
-      </button>
-    </div>
-  );
-}
-
-function CartDrawer() {
-  const { items, removeItem, updateQty, total, count, open, setOpen } = useCart();
-  const { t } = useLanguage();
-  const [name, setName] = useState(""); const [date, setDate] = useState("");
-  const [people, setPeople] = useState(1);
-  const [validationError, setValidationError] = useState<string | null>(null);
-  const has = items.length > 0;
-
-  const handleCheckout = () => {
-    if (!has) {
-      setValidationError(t('cart.alertEmpty'));
-      return;
-    }
-    if (!name.trim() || !date) {
-      setValidationError(t('cart.alertForm'));
-      return;
-    }
-    setValidationError(null);
-
-    const phone = siteInfo.phoneRaw.replace(/\D/g, '');
-    let msg = `${t('whatsapp.greeting')}%0A%0A`;
-    msg += `${t('whatsapp.contactDetails')}%0A`;
-    msg += `${t('whatsapp.name')} ${encodeURIComponent(name)}%0A`;
-    msg += `${t('whatsapp.date')} ${encodeURIComponent(date)}%0A`;
-    msg += `${t('whatsapp.people')} ${people}%0A`;
-
-    msg += `%0A${t('whatsapp.treatments')}%0A`;
-    items.forEach(i => {
-      msg += `• ${i.quantity}x ${encodeURIComponent(t(`treatments.items.${i.id}.name` as any))} ($${(i.price || 0) * i.quantity} MXN)%0A`;
-    });
-
-    msg += `%0A${t('whatsapp.total')} $${total} MXN`;
-
-    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
-  };
-
-  return (
-    <>
-      {open && <div className="fixed inset-0 bg-black/30 z-[70] backdrop-blur-sm" onClick={() => setOpen(false)} />}
-      <div className={`fixed top-0 right-0 h-full w-full sm:max-w-md bg-[var(--cream)] z-[80] shadow-2xl flex flex-col transition-transform duration-500 ${open ? "translate-x-0" : "translate-x-full"}`}>
-        {/* Header */}
-        <div className="p-5 border-b border-[var(--border-color)] flex justify-between items-center">
-          <h2 className="text-xl font-serif tracking-widest text-burgundy flex items-center gap-2"><ShoppingBag size={18} /> {has ? `${t('cart.title')} (${count})` : t('cart.emptyTitle')}</h2>
-          <button onClick={() => setOpen(false)} className="text-[var(--text-muted)] hover:text-[var(--text)]"><X size={20} /></button>
-        </div>
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-6">
-          {/* Dates */}
-          <div className="space-y-4">
-            <h3 className="text-[10px] tracking-[0.3em] font-sans text-[var(--text-muted)] uppercase font-semibold flex items-center gap-2"><User size={14} /> {t('cart.contactTitle')}</h3>
-            <div><label className="text-[9px] tracking-widest text-[var(--text-muted)] uppercase block mb-1">{t('cart.fullName')}</label><input type="text" value={name} onChange={e => { setName(e.target.value); setValidationError(null); }} placeholder={t('cart.namePlaceholder')} className="w-full border border-[var(--border-color)] bg-transparent px-3 py-2.5 text-xs font-sans focus:outline-none focus:border-burgundy transition-colors placeholder:text-[var(--text-muted)]/40" /></div>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-[10px] tracking-[0.3em] font-sans text-[var(--text-muted)] uppercase font-semibold flex items-center gap-2"><CalendarDays size={14} /> {t('cart.appointmentDetails')}</h3>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-[9px] tracking-widest text-[var(--text-muted)] uppercase block mb-1">{t('cart.date')}</label>
-                <input type="date" value={date} min={new Date().toISOString().split('T')[0]} onChange={e => { setDate(e.target.value); setValidationError(null); }} className="w-full h-11 border border-[var(--border-color)] bg-transparent px-3 text-xs font-sans focus:outline-none focus:border-burgundy transition-colors" />
-              </div>
-              <div>
-                <label className="text-[9px] tracking-widest text-[var(--text-muted)] uppercase block mb-1 flex items-center gap-1"><Users size={12} /> {t('cart.people')}</label>
-                <div className="flex items-center h-11 border border-[var(--border-color)]">
-                  <button onClick={() => setPeople(Math.max(1, people - 1))} className="h-full px-3 text-[var(--text-muted)] hover:text-burgundy flex items-center justify-center"><Minus size={12} /></button>
-                  <span className="flex-1 text-center text-xs h-full flex items-center justify-center">{people}</span>
-                  <button onClick={() => setPeople(people + 1)} className="h-full px-3 text-[var(--text-muted)] hover:text-burgundy flex items-center justify-center"><Plus size={12} /></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          {has && <div className="border-t border-[var(--border-color)]" />}
-          {has && (
-            <div className="space-y-5">
-              <h3 className="text-[10px] tracking-[0.3em] font-sans text-[var(--text-muted)] uppercase font-semibold">{t('cart.selectedTreatments')}</h3>
-              {items.map(item => (
-                <div key={item.id} className="flex gap-3 group">
-                  <div className="w-16 h-20 bg-gray-200 overflow-hidden shrink-0">{item.imageUrl && <img src={item.imageUrl} alt={t(`treatments.items.${item.id}.name` as any)} className="w-full h-full object-cover" />}</div>
-                  <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0">
-                    <div><div className="flex justify-between items-start gap-2"><h4 className="text-xs font-serif tracking-wider uppercase truncate">{t(`treatments.items.${item.id}.name` as any)}</h4><button onClick={() => removeItem(item.id)} className="text-[var(--text-muted)] hover:text-red-500 transition-colors shrink-0"><Trash2 size={12} /></button></div><p className="text-[9px] tracking-widest font-sans text-burgundy uppercase mt-0.5">{item.duration}</p></div>
-                    <div className="flex justify-between items-end"><span className="text-xs font-sans tracking-wider font-semibold">${(item.price || 0) * item.quantity} MXN</span><div className="flex items-center border border-[var(--border-color)]"><button onClick={() => updateQty(item.id, item.quantity - 1)} className="px-2 py-1 text-[var(--text-muted)]"><Minus size={10} /></button><span className="text-[10px] font-sans w-5 text-center">{item.quantity}</span><button onClick={() => updateQty(item.id, item.quantity + 1)} className="px-2 py-1 text-[var(--text-muted)]"><Plus size={10} /></button></div></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-          {!has && <p className="text-center text-xs text-[var(--text-muted)] tracking-widest py-8 uppercase">{t('cart.emptyMsg')}</p>}
-        </div>
-        {/* Footer */}
-        <div className="p-5 border-t border-[var(--border-color)] space-y-3">
-          {has && <div className="flex justify-between items-center mb-1"><span className="text-[10px] tracking-widest font-sans uppercase text-[var(--text-muted)]">{t('cart.subtotal')}</span><span className="text-lg font-sans tracking-widest font-semibold">${total} MXN</span></div>}
-          {validationError && (
-            <div className="flex items-start gap-2.5 p-3 bg-rose-50 border border-rose-200 rounded-lg">
-              <span className="text-rose-500 text-base shrink-0 leading-none mt-0.5">&#9888;</span>
-              <p className="text-xs font-sans text-rose-700 leading-relaxed flex-1">{validationError}</p>
-              <button onClick={() => setValidationError(null)} className="text-rose-400 hover:text-rose-600 shrink-0 ml-auto transition-colors">
-                <X size={12} />
-              </button>
-            </div>
-          )}
-          <button onClick={handleCheckout} className="w-full bg-burgundy hover:bg-burgundy/90 text-white py-4 tracking-[0.2em] font-sans text-[10px] font-semibold shadow-xl shadow-[var(--burgundy)]/20 transition-colors uppercase">{has ? t('cart.proceedBtn') : t('cart.searchBtn')}</button>
-          
-          {has && <p className="text-[9px] text-center text-[var(--text-muted)] leading-relaxed italic px-2">
-            {t('cart.disclaimer')}
-          </p>}
-          
-          <button onClick={() => setOpen(false)} className="w-full text-[var(--text-muted)] font-sans text-[10px] tracking-widest uppercase py-2 hover:text-[var(--text)] transition-colors">{t('cart.continueBtn')}</button>
-        </div>
-      </div>
-    </>
-  );
-}
 
 /* ═══════════════════════════════════════════════════════════════
    GALLERY
@@ -711,25 +539,50 @@ function MinimalFooter() {
   );
 }
 
+function FloatingBooking({ onOpen }: { onOpen: (url: string) => void }) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setVisible(window.scrollY > 400);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div className={`fixed bottom-6 right-6 z-[60] transition-all duration-500 transform ${visible ? "translate-y-0 opacity-100 scale-100" : "translate-y-10 opacity-0 scale-50 pointer-events-none"}`}>
+      <button 
+        onClick={() => onOpen(GENERAL_FRESHA_URL)} 
+        className="group relative bg-burgundy text-white p-4 rounded-full shadow-[0_10px_25px_-5px_rgba(99,11,17,0.6)] flex items-center justify-center hover:bg-burgundy/90 transition-all duration-300 hover:scale-110 active:scale-95"
+      >
+        <CalendarDays size={24} />
+        {/* Tooltip opcional o texto pequeño */}
+        <span className="absolute right-full mr-4 bg-navy text-white text-[10px] py-2 px-4 rounded-lg tracking-widest uppercase font-semibold opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-white/10 whitespace-nowrap">
+          Reservar Cita
+        </span>
+      </button>
+    </div>
+  );
+}
+
 /* ═══════════════════════════════════════════════════════════════
    MAIN APP (exported as single island)
    ═══════════════════════════════════════════════════════════════ */
 export default function DaliSpa() {
+  const [bookingUrl, setBookingUrl] = useState<string | null>(null);
+
   return (
     <LanguageProvider>
-      <CartProvider>
-        <Navbar />
-        <Hero />
-        <TreatmentMenu />
-        <GallerySection />
-        <ReviewsSection />
-        <ContactInfoSection />
-        <InteractiveMapSection />
-        <FAQSection />
-        <MinimalFooter />
-        <FloatingCart />
-        <CartDrawer />
-      </CartProvider>
+      <Navbar onOpenBooking={setBookingUrl} />
+      <Hero />
+      <TreatmentMenu onOpenBooking={setBookingUrl} />
+      <GallerySection />
+      <ReviewsSection />
+      <ContactInfoSection />
+      <InteractiveMapSection />
+      <FAQSection />
+      <MinimalFooter />
+      <FloatingBooking onOpen={setBookingUrl} />
+      <FreshaModal url={bookingUrl} onClose={() => setBookingUrl(null)} />
     </LanguageProvider>
   );
 }

@@ -54,26 +54,6 @@ export const translations = {
       r3_time: "Hace 4 años",
       r3_text: "Fui por un facial y quedé muy satisfecha con el resultado y la atención."
     },
-    cart: {
-      title: "CARRITO DALI",
-      emptyTitle: "RESERVA TU SESIÓN",
-      contactTitle: "Información de Contacto",
-      fullName: "Nombre Completo",
-      namePlaceholder: "Ej. María González",
-      appointmentDetails: "Detalles de la Cita",
-      date: "Fecha",
-      hour: "Hora",
-      people: "Personas",
-      selectedTreatments: "Tratamientos Seleccionados",
-      emptyMsg: "Explora nuestros paquetes de spa para agregar tratamientos.",
-      subtotal: "Subtotal",
-      proceedBtn: "SOLICITAR DISPONIBILIDAD",
-      disclaimer: "Tu mensaje será enviado por WhatsApp para confirmar disponibilidad.",
-      searchBtn: "BUSCAR DISPONIBILIDAD",
-      continueBtn: "SEGUIR EXPLORANDO",
-      alertEmpty: "Por favor selecciona al menos un tratamiento.",
-      alertForm: "Por favor completa tu nombre y la fecha de la reservación para continuar."
-    },
     footer: {
       subtitle: "Reconectando con tu paz interior en un santuario de lujo en",
       contact: "Contacto",
@@ -118,15 +98,6 @@ export const translations = {
     },
     gallery: {
       title: "Galería"
-    },
-    whatsapp: {
-      greeting: "Hola DALI SPA, quiero solicitar disponibilidad para una sesión.",
-      contactDetails: "*Detalles de Contacto:*",
-      name: "👤 Nombre:",
-      date: "📅 Fecha:",
-      people: "👥 Personas:",
-      treatments: "*Tratamientos Seleccionados:*",
-      total: "*Total Estimado:*"
     },
     treatments: {
       categories: {
@@ -220,26 +191,6 @@ export const translations = {
       r3_time: "4 years ago",
       r3_text: "I went for a facial and was very satisfied with the result and the attention."
     },
-    cart: {
-      title: "DALI CART",
-      emptyTitle: "BOOK YOUR SESSION",
-      contactTitle: "Contact Information",
-      fullName: "Full Name",
-      namePlaceholder: "E.g. Jane Doe",
-      appointmentDetails: "Appointment Details",
-      date: "Date",
-      hour: "Hour",
-      people: "People",
-      selectedTreatments: "Selected Treatments",
-      emptyMsg: "Browse our spa packages to add treatments.",
-      subtotal: "Subtotal",
-      proceedBtn: "REQUEST AVAILABILITY",
-      disclaimer: "Your message will be sent via WhatsApp to confirm availability.",
-      searchBtn: "SEARCH AVAILABILITY",
-      continueBtn: "CONTINUE BROWSING",
-      alertEmpty: "Please select at least one treatment.",
-      alertForm: "Please fill in your name and booking date to continue."
-    },
     footer: {
       subtitle: "Reconnecting you with your inner peace in a sanctuary of luxury at",
       contact: "Contact",
@@ -284,15 +235,6 @@ export const translations = {
     },
     gallery: {
       title: "Gallery"
-    },
-    whatsapp: {
-      greeting: "Hello DALI SPA, I would like to request availability for a session.",
-      contactDetails: "*Contact Details:*",
-      name: "👤 Name:",
-      date: "📅 Date:",
-      people: "👥 People:",
-      treatments: "*Selected Treatments:*",
-      total: "*Estimated Total:*"
     },
     treatments: {
       categories: {

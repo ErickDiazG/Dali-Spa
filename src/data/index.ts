@@ -28,9 +28,6 @@ export interface SpaService {
   imageUrl?: string;
 }
 
-export interface CartItem extends SpaService {
-  quantity: number;
-}
 
 export const treatments: SpaService[] = [
   // Salud Cutánea
@@ -95,3 +92,5 @@ export const siteInfo = {
     instagram: "https://www.instagram.com/spadali_zac"
   }
 };
+
+export const GENERAL_FRESHA_URL = "https://www.fresha.com/a/dali-spa-guadalupe-canada-de-la-bufa-grieta-4-r0fq9f67";
