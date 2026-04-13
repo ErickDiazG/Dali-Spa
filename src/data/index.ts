@@ -1,12 +1,15 @@
 export const images = {
   hero: "/images/Dali-hero.webp",
-  saludCutanea: "/images/salud-cutanea.jpg",
-  advancedCare: "/images/advanced-care.jpg",
-  renovacion: "/images/renovación.jpg",
-  body: "/images/body.jpg",
-  nailsBeauty: "/images/nails-and-beauty.jpg",
+  saludCutanea: "/images/salud-cutanea.webp",
+  advancedCare: "/images/advanced-care.webp",
+  renovacion: "/images/renovación.webp",
+  body: "/images/body.webp",
+  nailsBeauty: "/images/nails-and-beauty.webp",
   skin: "/images/skin.webp",
   waiting: "/images/Te esperamos.webp",
+  cera: "/images/depilacion-cera.webp",
+  laser: "/images/depilacion-laser.webp",
+  masServicios: "/images/mas-servicios.webp",
 };
 
 export const galleryImages = [
@@ -181,27 +184,27 @@ export const CATEGORY_CONFIG: Record<string, { title: string; image: string }> =
   },
   faciales: {
     title: "Tratamientos Faciales",
-    image: "/images/salud-cutanea.jpg",
+    image: "/images/salud-cutanea.webp",
   },
   corporales: {
     title: "Tratamientos Corporales",
-    image: "/images/body.jpg",
+    image: "/images/body.webp",
   },
   depilacion_cera: {
     title: "Depilación con Cera",
-    image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80",
+    image: "/images/depilacion-cera.webp",
   },
   depilacion_laser: {
     title: "Depilación Láser",
-    image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80",
+    image: "/images/depilacion-laser.webp",
   },
   unias: {
     title: "Uñas",
-    image: "/images/nails-and-beauty.jpg",
+    image: "/images/nails-and-beauty.webp",
   },
   mas_servicios: {
     title: "Más Servicios",
-    image: "/images/nails-and-beauty.jpg",
+    image: "/images/mas-servicios.webp",
   },
 };
 

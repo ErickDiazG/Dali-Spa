@@ -3,8 +3,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, CalendarDays, ExternalLink, Tag } from "lucide-react";
 import { FULL_MENU, CATEGORY_CONFIG, GENERAL_FRESHA_URL } from "../data";
 import FreshaModal from "./FreshaModal";
+import { LanguageProvider, useLanguage } from "../context/LanguageContext";
 
 export default function MenuCompleto() {
+  return (
+    <LanguageProvider>
+      <MenuContent />
+    </LanguageProvider>
+  );
+}
+
+function MenuContent() {
+  const { lang, setLang, t } = useLanguage();
   const categories = Object.keys(FULL_MENU);
   const [activeCategory, setActiveCategory] = useState(categories[0]);
   const [bookingUrl, setBookingUrl] = useState<string | null>(null);
@@ -95,86 +105,113 @@ export default function MenuCompleto() {
         <div className="w-full lg:w-[58%] min-h-screen bg-[var(--cream)]">
 
           {/* Sticky header (mobile + desktop) */}
-          <div className="sticky top-0 z-30 bg-[var(--cream)]/95 backdrop-blur-md border-b border-[var(--border-color)] px-6 md:px-10 py-4 flex items-center justify-between gap-4">
-            <a
-              href="/"
-              className="inline-flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--burgundy)] transition-colors group"
-            >
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              <span className="font-sans text-[10px] tracking-[0.2em] uppercase font-medium hidden sm:block">Inicio</span>
-            </a>
+          <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[var(--border-color)]/30 px-4 md:px-10 py-3 lg:py-4">
+            <div className="flex items-center justify-between gap-4">
+              <a
+                href="/"
+                className="inline-flex items-center text-[var(--text-muted)] hover:text-[var(--burgundy)] transition-colors group"
+              >
+                <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+              </a>
 
-            {/* Category pills (desktop) */}
-            <div className="hidden lg:flex items-center gap-2 overflow-x-auto scrollbar-hide">
+              {/* Mobile Title - Logo Centered (MATCH HOME PAGE STYLE) */}
+              <div className="lg:hidden flex flex-col items-center flex-1">
+                <span className="text-2xl font-logo tracking-[0.5em] font-medium text-charcoal leading-none">DALI</span>
+                <span className="text-[7px] tracking-[0.4em] font-sans text-[var(--text-muted)] uppercase mt-1">
+                  {t('hero.logoSubtitle')}
+                </span>
+              </div>
+
+              {/* Desktop Category pills (ONLY DESKTOP) */}
+              <div className="hidden lg:flex items-center gap-2 overflow-x-auto scrollbar-hide">
+                {categories.map((key) => (
+                  <button
+                    key={key}
+                    onClick={() => scrollToSection(key)}
+                    className={`shrink-0 text-[10px] tracking-[0.12em] font-sans font-semibold uppercase px-4 py-2 rounded-full border transition-all ${
+                      activeCategory === key
+                        ? "bg-[var(--burgundy)] text-white border-[var(--burgundy)]"
+                        : "text-[var(--text-muted)] border-[var(--border-color)] hover:border-[var(--burgundy)] hover:text-[var(--burgundy)] bg-white/50"
+                    }`}
+                  >
+                    {CATEGORY_CONFIG[key]?.title.split(" ")[0]}
+                  </button>
+                ))}
+              </div>
+
+              {/* Desktop Booking Button (ONLY DESKTOP) */}
+              <button
+                onClick={() => setBookingUrl(GENERAL_FRESHA_URL)}
+                className="hidden lg:flex items-center gap-2 bg-[var(--burgundy)] text-white px-5 py-2.5 text-[10px] tracking-[0.2em] font-sans font-semibold uppercase shadow-md hover:bg-[var(--burgundy)]/90 transition-colors"
+              >
+                <CalendarDays size={14} />
+                <span>Reservar</span>
+              </button>
+
+              {/* Mobile Language Switcher (MATCH HOME PAGE STYLE) */}
+              <button 
+                onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+                className="lg:hidden flex items-center text-[10px] font-sans tracking-[0.2em] font-bold py-2 text-burgundy transition-colors uppercase"
+              >
+                {lang === 'es' ? 'ENG' : 'ESP'}
+              </button>
+            </div>
+
+            {/* Mobile Sticky Category Navigation (ONLY MOBILE) */}
+            <div className="lg:hidden mt-4 overflow-x-auto no-scrollbar flex gap-2 pb-1 snap-x">
               {categories.map((key) => (
                 <button
                   key={key}
                   onClick={() => scrollToSection(key)}
-                  className={`shrink-0 text-[9px] tracking-[0.12em] font-sans font-semibold uppercase px-3 py-1.5 rounded-full border transition-all ${
+                  className={`shrink-0 px-4 py-2 rounded-full border text-[10px] uppercase tracking-widest font-sans font-extrabold transition-all snap-start ${
                     activeCategory === key
-                      ? "bg-[var(--burgundy)] text-white border-[var(--burgundy)]"
-                      : "text-[var(--text-muted)] border-[var(--border-color)] hover:border-[var(--burgundy)] hover:text-[var(--burgundy)]"
+                      ? "bg-burgundy text-white border-burgundy shadow-md"
+                      : "bg-white text-[var(--text-muted)] border-[var(--border-color)]"
                   }`}
                 >
-                  {CATEGORY_CONFIG[key]?.title.split(" ")[0]}
+                  {CATEGORY_CONFIG[key]?.title}
                 </button>
               ))}
             </div>
-
-            <button
-              onClick={() => setBookingUrl(GENERAL_FRESHA_URL)}
-              className="flex items-center gap-2 bg-[var(--burgundy)] text-white px-4 py-2 text-[9px] tracking-[0.2em] font-sans font-semibold uppercase shadow-md hover:bg-[var(--burgundy)]/90 transition-colors"
-            >
-              <CalendarDays size={13} />
-              <span className="hidden sm:block">Reservar</span>
-            </button>
           </div>
 
           {/* Content */}
           <div className="px-6 md:px-10 lg:px-14 pt-10 pb-24">
 
-            {/* Page title */}
+            {/* Page title area - Refined Hero for Mobile */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="mb-14"
+              className="mb-14 xl:mb-20 pt-4 lg:pt-0"
             >
-              {/* Mobile image */}
-              <div className="lg:hidden mb-8 h-52 overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--navy)]/60 to-transparent z-10" />
-                <img
-                  src={CATEGORY_CONFIG[categories[0]]?.image}
-                  alt="DALI SPA"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-4 left-4 z-20">
-                  <h1 className="text-white font-serif text-2xl italic">Menú de Servicios</h1>
-                </div>
+              <div className="lg:hidden mb-10 text-center">
+                <div className="w-10 h-0.5 bg-burgundy mx-auto mb-6" />
+                <p className="text-[var(--burgundy)] text-[10px] tracking-[0.4em] uppercase font-sans font-bold mb-4">
+                  Dali Spa · Catálogo
+                </p>
+                <h1 className="font-serif text-5xl text-[var(--navy)] leading-tight italic">
+                  Rituales & <br /> Servicios
+                </h1>
+                <p className="text-sm font-sans text-[var(--text-muted)] mt-6 max-w-xs mx-auto leading-relaxed font-light">
+                  Una selección de tratamientos diseñados para tu bienestar absoluto.
+                </p>
               </div>
 
-              <p className="text-[var(--burgundy)] text-[10px] tracking-[0.4em] uppercase font-sans font-bold mb-3">
-                Catálogo Completo
-              </p>
-              <h1 className="font-serif text-4xl md:text-5xl text-[var(--navy)] leading-tight">
-                Rituales & Servicios
-              </h1>
-              <p className="text-sm font-sans text-[var(--text-muted)] mt-4 max-w-md leading-relaxed">
-                Selecciona cualquier servicio para reservarlo directamente desde nuestra agenda en Fresha.
-              </p>
-
-              {/* Mobile category pills */}
-              <div className="lg:hidden flex gap-2 flex-wrap mt-6">
-                {categories.map((key) => (
-                  <button
-                    key={key}
-                    onClick={() => scrollToSection(key)}
-                    className="text-[9px] tracking-[0.12em] font-sans font-semibold uppercase px-3 py-1.5 border border-[var(--border-color)] text-[var(--text-muted)] hover:border-[var(--burgundy)] hover:text-[var(--burgundy)] transition-all rounded-full"
-                  >
-                    {CATEGORY_CONFIG[key]?.title}
-                  </button>
-                ))}
+              {/* Desktop Title (Unchanged) */}
+              <div className="hidden lg:block">
+                <p className="text-[var(--burgundy)] text-[10px] tracking-[0.4em] uppercase font-sans font-bold mb-3">
+                  Catálogo Completo
+                </p>
+                <h1 className="font-serif text-4xl md:text-5xl text-[var(--navy)] leading-tight">
+                  Rituales & Servicios
+                </h1>
+                <p className="text-sm font-sans text-[var(--text-muted)] mt-4 max-w-md leading-relaxed">
+                  Selecciona cualquier servicio para reservarlo directamente desde nuestra agenda en Fresha.
+                </p>
               </div>
+
+
             </motion.div>
 
             {/* Service Sections */}
@@ -188,7 +225,15 @@ export default function MenuCompleto() {
                     {/* Mobile image banner */}
                     <div className="lg:hidden mb-6 h-40 overflow-hidden relative">
                       <div className="absolute inset-0 bg-black/30 z-10" />
-                      <img src={config.image} alt={config.title} className="w-full h-full object-cover" />
+                      <img 
+                        src={config.image} 
+                        alt={config.title} 
+                        className="w-full h-full object-cover" 
+                        style={{ 
+                          objectPosition: key === 'depilacion_cera' ? 'center 20%' : 
+                                         key === 'depilacion_laser' ? 'center 85%' : 'center'
+                        }}
+                      />
                       <div className="absolute bottom-3 left-4 z-20">
                         <h2 className="text-white font-serif text-xl italic">{config.title}</h2>
                       </div>
