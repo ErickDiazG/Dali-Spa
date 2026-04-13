@@ -35,9 +35,9 @@ export const featuredServices: SpaService[] = [
   { id: "f1", category: "featured", name: "Reductivo o reafirmante", duration: "1 hr – 1 hr, 30 min", priceLabel: "desde MX$570", bookingUrl: "https://www.fresha.com/a/dali-spa-guadalupe-canada-de-la-bufa-grieta-4-r0fq9f67?service=s%3A15763476" },
   { id: "f2", category: "featured", name: "Gel", duration: "40 min – 1 hr", priceLabel: "desde MX$100", bookingUrl: "https://www.fresha.com/a/dali-spa-guadalupe-canada-de-la-bufa-grieta-4-r0fq9f67?service=s%3A15768470" },
   { id: "f3", category: "featured", name: "Masaje relajante", duration: "20 min – 1 hr, 20 min", priceLabel: "desde MX$330", bookingUrl: "https://www.fresha.com/a/dali-spa-guadalupe-canada-de-la-bufa-grieta-4-r0fq9f67?service=s%3A15763466" },
-  { id: "f4", category: "featured", name: "Pedicura", duration: "40 min – 1 hr, 20 min", priceLabel: "desde MX$270" },
-  { id: "f5", category: "featured", name: "The Christmas Reset Experience", duration: "2 hr, 15 min · 5 servicios", priceLabel: "MX$1,000 (Ahorra 29%)", isPackage: true, description: "Facial Oxigenante · Masaje Relajante · Spa de Pies · Refrigerio · Regalo" },
-  { id: "f6", category: "featured", name: "Paquete Reset de Verano", duration: "1 hr, 30 min · 2 servicios", priceLabel: "MX$600 (Ahorra 20%)", isPackage: true, description: "Limpieza facial profunda + Mascarilla calmante e hidratante · Detox de pies" },
+  { id: "f4", category: "featured", name: "Pedicura", duration: "40 min – 1 hr, 20 min", priceLabel: "desde MX$270", bookingUrl: "https://www.fresha.com/a/dali-spa-guadalupe-canada-de-la-bufa-grieta-4-r0fq9f67?service=s%3A13761508" },
+  { id: "f5", category: "featured", name: "The Christmas Reset Experience", duration: "2 hr, 15 min · 5 servicios", priceLabel: "MX$1,000 (Ahorra 29%)", isPackage: true, description: "Facial Oxigenante · Masaje Relajante · Spa de Pies · Refrigerio · Regalo", bookingUrl: "https://www.fresha.com/a/dali-spa-guadalupe-canada-de-la-bufa-grieta-4-r0fq9f67?service=p%3A1700536" },
+  { id: "f6", category: "featured", name: "Paquete Reset de Verano", duration: "1 hr, 30 min · 2 servicios", priceLabel: "MX$600 (Ahorra 20%)", isPackage: true, description: "Limpieza facial profunda + Mascarilla calmante e hidratante · Detox de pies", bookingUrl: "https://www.fresha.com/a/dali-spa-guadalupe-canada-de-la-bufa-grieta-4-r0fq9f67?service=p%3A1652728" },
 ];
 
 // ─── MENÚ COMPLETO ───────────────────────────────────────────────────────────

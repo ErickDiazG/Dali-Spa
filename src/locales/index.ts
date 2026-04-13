@@ -28,7 +28,7 @@ export const translations = {
       cta3Btn: "RESERVA TU VISITA"
     },
     menu: {
-      title: "Menú de Tratamientos",
+      title: "Tratamientos destacados",
       all: "Todos",
       massage: "Masajes",
       facial: "Faciales",
